@@ -159,7 +159,7 @@ export default function Projects() {
                         A showcase of innovative projects merging design and technology.
                     </p>
 
-                    {/* Filter Buttons */}
+                    {/* Filter Buttons - TRUE Liquid Glass */}
                     <div className="flex flex-wrap justify-center gap-3 mt-8">
                         {categories.map((category) => (
                             <motion.button
@@ -170,23 +170,20 @@ export default function Projects() {
                                 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 overflow-hidden ${activeFilter === category ? 'text-black' : 'text-white'
+                                className={`relative isolate px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 overflow-hidden shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] ${activeFilter === category ? 'text-black' : 'text-white/90'
                                     }`}
                             >
-                                {/* Liquid glass layers */}
-                                <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/15 to-white/10" />
-                                <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] rounded-full pointer-events-none" />
+                                {/* TRUE Liquid Glass Layers */}
+                                <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                                <div className={`absolute inset-0 z-10 ${activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green' : 'bg-white/25'}`} />
+                                <div className="absolute inset-0 z-20 rounded-[inherit] shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
 
-                                {/* Active state gradient overlay */}
+                                {/* Glow for active */}
                                 {activeFilter === category && (
-                                    <>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-green" />
-                                        <div className="absolute inset-0 shadow-[0_0_20px_rgba(46,230,255,0.5)]" />
-                                    </>
+                                    <div className="absolute inset-0 shadow-[0_0_20px_rgba(46,230,255,0.5)]" />
                                 )}
 
-                                <span className="relative z-10">{category === 'all' ? 'All Projects' : category}</span>
+                                <span className="relative z-30">{category === 'all' ? 'All Projects' : category}</span>
                             </motion.button>
                         ))}
                     </div>
@@ -356,7 +353,7 @@ export default function Projects() {
                     </AnimatePresence>
                 </div>
 
-                {/* Show More / Show Less Button */}
+                {/* Show More / Show Less Button - TRUE Liquid Glass */}
                 {!showAll && filteredProjects.length > INITIAL_COUNT && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -365,14 +362,14 @@ export default function Projects() {
                     >
                         <button
                             onClick={() => setShowAll(true)}
-                            className="relative px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 overflow-hidden group"
+                            className="relative isolate px-8 py-4 rounded-full font-semibold text-white/90 transition-all duration-300 overflow-hidden group shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] hover:shadow-[0_0_50px_rgba(255,255,255,0.8)]"
                         >
-                            {/* Liquid glass layers */}
-                            <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/15 to-white/10" />
-                            <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_15px_rgba(255,255,255,0.1)] rounded-full pointer-events-none group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_25px_rgba(255,255,255,0.2)]" />
+                            {/* TRUE Liquid Glass Layers */}
+                            <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                            <div className="absolute inset-0 z-10 bg-white/25" />
+                            <div className="absolute inset-0 z-20 rounded-[inherit] shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
 
-                            <span className="relative z-10 flex items-center gap-2">
+                            <span className="relative z-30 flex items-center gap-2">
                                 Show More Projects
                                 <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                             </span>

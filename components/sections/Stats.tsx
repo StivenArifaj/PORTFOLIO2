@@ -41,15 +41,15 @@ function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounte
             transition={{ duration: 0.6 }}
             className="relative group"
         >
-            <div className="relative p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105">
-                {/* Liquid glass layers */}
-                <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
-                <div className="absolute inset-0 border border-white/10 group-hover:border-accent-cyan/50 transition-all rounded-2xl" />
-                <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-2xl pointer-events-none" />
+            <div className="relative isolate p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]">
+                {/* TRUE Liquid Glass Layers */}
+                <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                <div className="absolute inset-0 z-10 bg-white/25" />
+                <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                <div className="absolute inset-0 border border-white/10 group-hover:border-accent-cyan/50 transition-all rounded-2xl pointer-events-none" />
 
                 {/* Content */}
-                <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="relative z-30 flex flex-col items-center text-center">
                     <div className="mb-4 p-4 rounded-full bg-gradient-to-br from-accent-cyan/20 to-accent-green/20 border border-accent-cyan/30">
                         {icon}
                     </div>

@@ -38,29 +38,31 @@ export default function About() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             {cards.map((item, idx) => (
-                                <GlowingEffect
-                                    key={idx}
-                                    spread={60}
-                                    glow={true}
-                                    disabled={false}
-                                    proximity={120}
-                                    inactiveZone={0.01}
-                                    borderWidth={2}
-                                >
-                                    <div className="relative h-32 rounded-2xl overflow-hidden group">
-                                        {/* Liquid glass layers */}
-                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
-                                        <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-2xl pointer-events-none" />
+                                <div key={idx} className="relative isolate">
+                                    <div className="relative h-32 rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]">
+                                        {/* TRUE Liquid Glass Layers */}
+                                        <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                                        <div className="absolute inset-0 z-10 bg-white/25" />
+                                        <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+
+                                        {/* Glowing Effect for neon borders */}
+                                        <GlowingEffect
+                                            spread={60}
+                                            glow={true}
+                                            disabled={false}
+                                            proximity={120}
+                                            inactiveZone={0.01}
+                                            borderWidth={2}
+                                        />
 
                                         {/* Content */}
-                                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4 text-center">
+                                        <div className="relative z-30 flex flex-col items-center justify-center h-full p-4 text-center">
                                             {item.icon}
                                             <span className="text-xs text-neutral-300 mb-1 uppercase tracking-wider">{item.title}</span>
                                             <span className="text-md font-semibold text-white">{item.value}</span>
                                         </div>
                                     </div>
-                                </GlowingEffect>
+                                </div>
                             ))}
                         </div>
                     </motion.div>

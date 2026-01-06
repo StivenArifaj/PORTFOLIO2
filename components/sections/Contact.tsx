@@ -59,17 +59,17 @@ export default function Contact() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full max-w-4xl relative rounded-[2rem] p-8 md:p-12 overflow-hidden group"
+                    className="w-full max-w-4xl relative isolate rounded-[2rem] p-8 md:p-12 overflow-hidden group shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]"
                 >
-                    {/* Liquid glass layers */}
-                    <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
-                    <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_50px_-10px_rgba(255,255,255,0.1)] rounded-[2rem] pointer-events-none" />
+                    {/* TRUE Liquid Glass Layers */}
+                    <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                    <div className="absolute inset-0 z-10 bg-white/25" />
+                    <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
 
                     {/* Subtle top sheen */}
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                    <div className="absolute inset-x-0 top-0 h-px z-30 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
-                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="relative z-30 grid grid-cols-1 md:grid-cols-2 gap-12">
                         <div className="space-y-6">
                             <h2 className="text-4xl font-bold font-orbitron text-white">Let's Build Something</h2>
                             <p className="text-neutral-300 font-poppins leading-relaxed">
