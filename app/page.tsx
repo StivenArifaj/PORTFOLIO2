@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
 import Navbar from "@/components/layout/Navbar";
 import ScrollFixer from "@/components/utils/ScrollFixer";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 // Dynamically import sections below the fold
 const About = dynamic(() => import("@/components/sections/About"), {
@@ -29,6 +30,7 @@ const Footer = dynamic(() => import("@/components/layout/Footer"), {
 export default function Home() {
   return (
     <main className="bg-background min-h-screen selection:bg-[#004D61]/30 selection:text-white">
+      <ScrollProgress />
       <ScrollFixer />
       <Navbar />
       <Hero />

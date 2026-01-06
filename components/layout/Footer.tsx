@@ -8,7 +8,7 @@ export default function Footer() {
                     Designed & Built with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by Stiven Arifaj
                 </p>
                 <p className="text-neutral-600 text-xs mt-2 font-poppins">
-                    © 2024 All Rights Reserved.
+                    © {new Date().getFullYear()} All Rights Reserved.
                 </p>
             </div>
         </footer>

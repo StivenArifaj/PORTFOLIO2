@@ -80,11 +80,30 @@ export default function Contact() {
                                 </a>
 
                                 <div className="flex gap-4 pt-4">
-                                    {[Github, Linkedin, Twitter].map((Icon, i) => (
-                                        <Link key={i} href="#" className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all">
-                                            <Icon className="w-5 h-5" />
-                                        </Link>
-                                    ))}
+                                    <Link
+                                        href="https://github.com/stivenarifaj"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all"
+                                    >
+                                        <Github className="w-5 h-5" />
+                                    </Link>
+                                    <Link
+                                        href="https://linkedin.com/in/stivenarifaj"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all"
+                                    >
+                                        <Linkedin className="w-5 h-5" />
+                                    </Link>
+                                    <Link
+                                        href="https://twitter.com/stivenarifaj"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all"
+                                    >
+                                        <Twitter className="w-5 h-5" />
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -129,8 +148,8 @@ export default function Contact() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                         className={`flex items-center gap-2 p-4 rounded-xl ${status.type === 'success'
-                                                ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                                                : 'bg-red-500/10 border border-red-500/20 text-red-400'
+                                            ? 'bg-green-500/10 border border-green-500/20 text-green-400'
+                                            : 'bg-red-500/10 border border-red-500/20 text-red-400'
                                             }`}
                                     >
                                         {status.type === 'success' ? (
@@ -158,6 +177,12 @@ export default function Contact() {
                                     </>
                                 )}
                             </Button>
+
+                            {/* Response Time Indicator */}
+                            <p className="text-sm text-neutral-400 text-center mt-4 flex items-center justify-center gap-2">
+                                <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                Usually responds within 24 hours
+                            </p>
                         </form>
                     </div>
                 </motion.div>
