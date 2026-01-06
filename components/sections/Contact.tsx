@@ -59,8 +59,13 @@ export default function Contact() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full max-w-4xl liquid-glass rounded-[2rem] p-8 md:p-12 shadow-[0_0_50px_-10px_rgba(255,255,255,0.1)] relative overflow-hidden group"
+                    className="w-full max-w-4xl relative rounded-[2rem] p-8 md:p-12 overflow-hidden group"
                 >
+                    {/* Liquid glass layers */}
+                    <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
+                    <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_0_50px_-10px_rgba(255,255,255,0.1)] rounded-[2rem] pointer-events-none" />
+
                     {/* Subtle top sheen */}
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 

@@ -170,12 +170,23 @@ export default function Projects() {
                                 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`px-6 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 ${activeFilter === category
-                                        ? 'bg-gradient-to-r from-accent-cyan to-accent-green text-black shadow-[0_0_20px_rgba(46,230,255,0.5)]'
-                                        : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'
+                                className={`relative px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 overflow-hidden ${activeFilter === category ? 'text-black' : 'text-white'
                                     }`}
                             >
-                                {category === 'all' ? 'All Projects' : category}
+                                {/* Liquid glass layers */}
+                                <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/15 to-white/10" />
+                                <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] rounded-full pointer-events-none" />
+
+                                {/* Active state gradient overlay */}
+                                {activeFilter === category && (
+                                    <>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-green" />
+                                        <div className="absolute inset-0 shadow-[0_0_20px_rgba(46,230,255,0.5)]" />
+                                    </>
+                                )}
+
+                                <span className="relative z-10">{category === 'all' ? 'All Projects' : category}</span>
                             </motion.button>
                         ))}
                     </div>
@@ -346,25 +357,16 @@ export default function Projects() {
                 </div>
 
                 {/* Show More / Show Less Button */}
-                {hasMoreProjects && (
+                {!showAll && totalProjects > initialProjectCount && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="flex justify-center mt-16"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex justify-center mt-12"
                     >
-                        <Button
-                            onClick={() => setShowAll(!showAll)}
-                            variant="outline"
-                            className="rounded-full px-8 py-6 text-lg font-semibold border-2 border-accent-cyan/50 bg-transparent text-white hover:bg-accent-cyan/10 hover:border-accent-cyan transition-all duration-300 gap-3"
+                        <button
+                            onClick={() => setShowAll(true)}
+                            className="relative px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 overflow-hidden group"
                         >
-                            {showAll ? (
-                                <>
-                                    Show Less <ChevronUp className="w-5 h-5" />
-                                </>
-                            ) : (
-                                <>
-                                    Show More ({projects.length - INITIAL_COUNT} more projects) <ChevronDown className="w-5 h-5" />
-                                </>
                             )}
                         </Button>
                     </motion.div>
