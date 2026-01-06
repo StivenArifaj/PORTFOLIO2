@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Orbitron, Poppins, Space_Mono } from "next/font/google"; // Ensure fonts are imported
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
 
 // Font configurations
 const orbitron = Orbitron({
@@ -48,6 +50,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <LiquidGlassFilter />
           {children}
         </ThemeProvider>
       </body>

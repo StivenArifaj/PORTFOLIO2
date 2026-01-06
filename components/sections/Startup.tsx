@@ -48,7 +48,17 @@ function FloatingPaths({ position }: { position: number }) {
     );
 }
 
+import { useMobile } from "@/hooks/use-mobile";
+import { useEffect, useState } from "react";
+
 export default function Startup() {
+    const isMobile = useMobile();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <section id="startup" className="py-20 lg:py-32 relative overflow-hidden bg-background">
             {/* Background Paths usage */}
@@ -62,7 +72,7 @@ export default function Startup() {
                     <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-4 bg-gradient-to-r from-accent-cyan to-accent-green bg-clip-text text-transparent">
                         MoneyRush FinCity
                     </h2>
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins">
+                    <p className="text-xl text-neutral-200 max-w-2xl mx-auto font-poppins">
                         Founded MoneyRush, a gamified financial literacy platform empowering the next generation.
                     </p>
                 </div>
@@ -73,6 +83,7 @@ export default function Startup() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
+                        viewport={{ once: true, margin: "-50px" }}
                         className="relative w-[300px] h-[600px] rounded-[3rem] bg-neutral-900 border-8 border-neutral-800 shadow-2xl overflow-hidden group shrink-0"
                     >
                         <GlowingEffect
@@ -84,19 +95,30 @@ export default function Startup() {
                             borderWidth={3}
                         />
 
-                        {/* Screen Content placeholder - In real app, use an image */}
-                        <div className="absolute inset-0 bg-neutral-950 overflow-hidden flex flex-col">
-                            <div className="w-32 h-7 bg-black absolute top-0 left-1/2 transform -translate-x-1/2 rounded-b-2xl z-20" />
-                            <div className="flex-1 w-full bg-neutral-900 relative flex flex-col items-center justify-center p-8 text-center border-t-[8px] border-black">
-                                <Wallet className="w-20 h-20 text-accent-green mb-6 opacity-80" />
-                                <h3 className="text-2xl font-bold text-white mb-2">FinCity Mobile</h3>
-                                <p className="text-neutral-500 text-sm">Interactive Financial Simulation Environment</p>
-                                <div className="mt-8 w-full space-y-3">
-                                    <div className="h-2 w-full bg-neutral-800 rounded-full animate-pulse" />
-                                    <div className="h-2 w-3/4 bg-neutral-800 rounded-full animate-pulse" />
-                                    <div className="h-2 w-1/2 bg-neutral-800 rounded-full animate-pulse" />
+                        {/* Screen Content */}
+                        <div className="absolute inset-0 bg-neutral-950 overflow-hidden">
+                            {/* iPhone Notch */}
+                            <div className="w-32 h-7 bg-black absolute top-0 left-1/2 transform -translate-x-1/2 rounded-b-2xl z-20 pointer-events-none" />
+
+                            {/* Mobile: Static screenshot (fast) - Default Fallback */}
+                            {(!mounted || isMobile) ? (
+                                <div className="w-full h-full relative">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src="/screenshots/moneyrush-1.png"
+                                        alt="MoneyRush App Screenshot"
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
-                            </div>
+                            ) : (
+                                /* Desktop: Live Website Iframe - Only if mounted AND desktop */
+                                <iframe
+                                    src="https://moneyrush.vercel.app"
+                                    className="w-full h-full border-0 bg-white"
+                                    title="MoneyRush FinCity Demo"
+                                    loading="lazy"
+                                />
+                            )}
                         </div>
                     </motion.div>
 
@@ -112,13 +134,14 @@ export default function Startup() {
                         </div>
 
                         <h3 className="text-3xl font-bold text-white font-orbitron">Gamifying Financial Education</h3>
-                        <p className="text-muted-foreground leading-relaxed text-lg">
-                            Designed and built a comprehensive ecosystem where teenagers learn finance through interactive city-building and stock market simulations. MoneyRush bridges the gap between theory and practice.
+                        <p className="text-neutral-300 leading-relaxed text-lg">
+                            Designed and built a comprehensive ecosystem where teenagers learn finance through living inside an virtual city and making decisions that an adult would make in their financial life. MoneyRush bridges the gap between financial theory and practical application in an engaging, age-appropriate way.
                         </p>
 
                         <ul className="space-y-4 pt-2">
                             {[
-                                "User Growth: +55% Month over Month",
+                                "A proven platform especially in the Albanian market.",
+                                "This platform won 3-rd place in one of biggest Albanian Startup competition STARTUP CITY 7 , in its very first year.",
                                 "Tech Stack: React Native, Firebase, Node.js",
                                 "Features: Real-time Stock Sim, Budgeting, City Builder"
                             ].map((item, i) => (

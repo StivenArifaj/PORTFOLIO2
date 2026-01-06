@@ -167,19 +167,19 @@ export function Waves({
                 const dx = p.x - mouse.sx
                 const dy = p.y - mouse.sy
                 const d = Math.hypot(dx, dy)
-                const l = Math.max(175, mouse.vs)
+                const l = 180
 
                 if (d < l) {
                     const s = 1 - d / l
                     const f = Math.cos(d * 0.001) * s
-                    p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035
-                    p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035
+                    p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035  // Reduced influence
+                    p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035  // Reduced influence
                 }
 
-                p.cursor.vx += (0 - p.cursor.x) * 0.01
-                p.cursor.vy += (0 - p.cursor.y) * 0.01
-                p.cursor.vx *= 0.95
-                p.cursor.vy *= 0.95
+                p.cursor.vx += (0 - p.cursor.x) * 0.005
+                p.cursor.vy += (0 - p.cursor.y) * 0.005
+                p.cursor.vx *= 0.98
+                p.cursor.vy *= 0.98
                 p.cursor.x += p.cursor.vx
                 p.cursor.y += p.cursor.vy
                 p.cursor.x = Math.min(50, Math.max(-50, p.cursor.x))

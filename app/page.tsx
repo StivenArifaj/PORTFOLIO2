@@ -1,16 +1,35 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Startup from "@/components/sections/Startup";
-import Projects from "@/components/sections/Projects";
-import Skills from "@/components/sections/Skills";
-import Journey from "@/components/sections/Journey";
-import Contact from "@/components/sections/Contact";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ScrollFixer from "@/components/utils/ScrollFixer";
+
+// Dynamically import sections below the fold
+const About = dynamic(() => import("@/components/sections/About"), {
+  ssr: true,
+});
+const Startup = dynamic(() => import("@/components/sections/Startup"), {
+  ssr: true,
+});
+const Projects = dynamic(() => import("@/components/sections/Projects"), {
+  ssr: true,
+});
+const Skills = dynamic(() => import("@/components/sections/Skills"), {
+  ssr: true,
+});
+const Journey = dynamic(() => import("@/components/sections/Journey"), {
+  ssr: true,
+});
+const Contact = dynamic(() => import("@/components/sections/Contact"), {
+  ssr: true,
+});
+const Footer = dynamic(() => import("@/components/layout/Footer"), {
+  ssr: true,
+});
 
 export default function Home() {
   return (
-    <main className="bg-background min-h-screen selection:bg-accent-cyan/30 selection:text-white">
+    <main className="bg-background min-h-screen selection:bg-[#004D61]/30 selection:text-white">
+      <ScrollFixer />
       <Navbar />
       <Hero />
       <About />

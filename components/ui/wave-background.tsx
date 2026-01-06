@@ -1,7 +1,8 @@
 'use client'
 import * as React from 'react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createNoise2D } from 'simplex-noise'
+import { useMobile } from '@/hooks/use-mobile';
 
 interface Point {
     x: number
@@ -22,12 +23,37 @@ interface WavesProps {
     pointerSize?: number
 }
 
+// Static fallback for mobile - visually similar but zero CPU cost
+function StaticWaveBackground({ backgroundColor }: { backgroundColor: string }) {
+    return (
+        <div
+            className="absolute inset-0"
+            style={{
+                backgroundColor,
+                backgroundImage: `
+                    repeating-linear-gradient(
+                        90deg,
+                        transparent,
+                        transparent 15px,
+                        rgba(255,255,255,0.03) 15px,
+                        rgba(255,255,255,0.03) 16px
+                    )
+                `,
+            }}
+        />
+    );
+}
+
 export function Waves({
     className = "",
     strokeColor = "#ffffff",  // White lines
     backgroundColor = "#000000",  // Black background
     pointerSize = 0.5
 }: WavesProps) {
+    const isMobile = useMobile();
+    const [mounted, setMounted] = useState(false);
+
+    // Refs
     const containerRef = useRef<HTMLDivElement>(null)
     const svgRef = useRef<SVGSVGElement>(null)
     const mouseRef = useRef({
@@ -43,37 +69,15 @@ export function Waves({
         set: false,
     })
     const pathsRef = useRef<SVGPathElement[]>([])
-    const linesRef = useRef<Point[][]>([])  // 替换any为Point[][]
-    const noiseRef = useRef<((x: number, y: number) => number) | null>(null)  // 替换any为具体的函数类型
+    const linesRef = useRef<Point[][]>([])
+    const noiseRef = useRef<((x: number, y: number) => number) | null>(null)
     const rafRef = useRef<number | null>(null)
     const boundingRef = useRef<DOMRect | null>(null)
 
-    // Initialization
+    // Initial Mount
     useEffect(() => {
-        if (!containerRef.current || !svgRef.current) return
-
-        // Initialize noise generator
-        noiseRef.current = createNoise2D()
-
-        // Initialize size and lines
-        setSize()
-        setLines()
-
-        // Bind events
-        window.addEventListener('resize', onResize)
-        window.addEventListener('mousemove', onMouseMove)
-        containerRef.current.addEventListener('touchmove', onTouchMove, { passive: false })
-
-        // Start animation
-        rafRef.current = requestAnimationFrame(tick)
-
-        return () => {
-            if (rafRef.current) cancelAnimationFrame(rafRef.current)
-            window.removeEventListener('resize', onResize)
-            window.removeEventListener('mousemove', onMouseMove)
-            containerRef.current?.removeEventListener('touchmove', onTouchMove)
-        }
-    }, [])
+        setMounted(true);
+    }, []);
 
     // Set SVG size
     const setSize = () => {
@@ -86,7 +90,7 @@ export function Waves({
         svgRef.current.style.height = `${height}px`
     }
 
-    // Setup lines - more points for smoother curves
+    // Setup lines
     const setLines = () => {
         if (!svgRef.current || !boundingRef.current) return
 
@@ -99,9 +103,8 @@ export function Waves({
         })
         pathsRef.current = []
 
-        // Use smaller spacing to generate more lines and points for smoother results
-        const xGap = 8  // Reduced horizontal spacing
-        const yGap = 8  // Reduced vertical spacing for denser points
+        const xGap = 8; // Always use desktop quality for desktop
+        const yGap = 8;
 
         const oWidth = width + 200
         const oHeight = height + 30
@@ -123,7 +126,6 @@ export function Waves({
                     wave: { x: 0, y: 0 },
                     cursor: { x: 0, y: 0, vx: 0, vy: 0 },
                 }
-
                 points.push(point)
             }
 
@@ -140,31 +142,25 @@ export function Waves({
 
             svgRef.current.appendChild(path)
             pathsRef.current.push(path)
-
-            // Add points
             linesRef.current.push(points)
         }
     }
 
-    // Resize handler
     const onResize = () => {
         setSize()
         setLines()
     }
 
-    // Mouse handler
     const onMouseMove = (e: MouseEvent) => {
         updateMousePosition(e.pageX, e.pageY)
     }
 
-    // Touch handler
     const onTouchMove = (e: TouchEvent) => {
         e.preventDefault()
         const touch = e.touches[0]
         updateMousePosition(touch.clientX, touch.clientY)
     }
 
-    // Update mouse position
     const updateMousePosition = (x: number, y: number) => {
         if (!boundingRef.current) return
 
@@ -181,14 +177,12 @@ export function Waves({
             mouse.set = true
         }
 
-        // Update CSS variables
         if (containerRef.current) {
             containerRef.current.style.setProperty('--x', `${mouse.sx}px`)
             containerRef.current.style.setProperty('--y', `${mouse.sy}px`)
         }
     }
 
-    // Move points - smoother wave motion
     const movePoints = (time: number) => {
         const { current: lines } = linesRef
         const { current: mouse } = mouseRef
@@ -198,16 +192,14 @@ export function Waves({
 
         lines.forEach((points) => {
             points.forEach((p: Point) => {
-                // Wave movement - reduced amplitude for smoother waves
                 const move = noise(
-                    (p.x + time * 0.008) * 0.003,  // Adjusted frequency
-                    (p.y + time * 0.003) * 0.002   // Adjusted frequency
-                ) * 8  // Reduced amplitude for smoother waves
+                    (p.x + time * 0.008) * 0.003,
+                    (p.y + time * 0.003) * 0.002
+                ) * 8
 
-                p.wave.x = Math.cos(move) * 12  // Reduced horizontal amplitude
-                p.wave.y = Math.sin(move) * 6   // Reduced vertical amplitude
+                p.wave.x = Math.cos(move) * 12
+                p.wave.y = Math.sin(move) * 6
 
-                // Mouse effect - smoother response
                 const dx = p.x - mouse.sx
                 const dy = p.y - mouse.sy
                 const d = Math.hypot(dx, dy)
@@ -217,36 +209,32 @@ export function Waves({
                     const s = 1 - d / l
                     const f = Math.cos(d * 0.001) * s
 
-                    p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035  // Reduced influence
-                    p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035  // Reduced influence
+                    p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035
+                    p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035
                 }
 
-                p.cursor.vx += (0 - p.cursor.x) * 0.01   // Increased restoration force
-                p.cursor.vy += (0 - p.cursor.y) * 0.01   // Increased restoration force
+                p.cursor.vx += (0 - p.cursor.x) * 0.01
+                p.cursor.vy += (0 - p.cursor.y) * 0.01
 
-                p.cursor.vx *= 0.95  // Increased smoothness
-                p.cursor.vy *= 0.95  // Increased smoothness
+                p.cursor.vx *= 0.95
+                p.cursor.vy *= 0.95
 
                 p.cursor.x += p.cursor.vx
                 p.cursor.y += p.cursor.vy
 
-                p.cursor.x = Math.min(50, Math.max(-50, p.cursor.x))  // Limited deformation range
-                p.cursor.y = Math.min(50, Math.max(-50, p.cursor.y))  // Limited deformation range
+                p.cursor.x = Math.min(50, Math.max(-50, p.cursor.x))
+                p.cursor.y = Math.min(50, Math.max(-50, p.cursor.y))
             })
         })
     }
 
-    // Get moved point coordinates
     const moved = (point: Point, withCursorForce = true) => {
-        const coords = {
+        return {
             x: point.x + point.wave.x + (withCursorForce ? point.cursor.x : 0),
             y: point.y + point.wave.y + (withCursorForce ? point.cursor.y : 0),
         }
-
-        return coords
     }
 
-    // Draw lines - using line segments
     const drawLines = () => {
         const { current: lines } = linesRef
         const { current: paths } = pathsRef
@@ -254,11 +242,9 @@ export function Waves({
         lines.forEach((points, lIndex) => {
             if (points.length < 2 || !paths[lIndex]) return;
 
-            // First point
             const firstPoint = moved(points[0], false)
             let d = `M ${firstPoint.x} ${firstPoint.y}`
 
-            // Connect points with lines
             for (let i = 1; i < points.length; i++) {
                 const current = moved(points[i])
                 d += `L ${current.x} ${current.y}`
@@ -268,15 +254,14 @@ export function Waves({
         })
     }
 
-    // Animation logic
     const tick = (time: number) => {
+        if (!containerRef.current) return;
+
         const { current: mouse } = mouseRef
 
-        // Smooth mouse movement
         mouse.sx += (mouse.x - mouse.sx) * 0.1
         mouse.sy += (mouse.y - mouse.sy) * 0.1
 
-        // Mouse velocity
         const dx = mouse.x - mouse.lx
         const dy = mouse.y - mouse.ly
         const d = Math.hypot(dx, dy)
@@ -285,23 +270,47 @@ export function Waves({
         mouse.vs += (d - mouse.vs) * 0.1
         mouse.vs = Math.min(100, mouse.vs)
 
-        // Previous mouse position
         mouse.lx = mouse.x
         mouse.ly = mouse.y
-
-        // Mouse angle
         mouse.a = Math.atan2(dy, dx)
 
-        // Animation
-        if (containerRef.current) {
-            containerRef.current.style.setProperty('--x', `${mouse.sx}px`)
-            containerRef.current.style.setProperty('--y', `${mouse.sy}px`)
-        }
+        containerRef.current.style.setProperty('--x', `${mouse.sx}px`)
+        containerRef.current.style.setProperty('--y', `${mouse.sy}px`)
 
         movePoints(time)
         drawLines()
 
         rafRef.current = requestAnimationFrame(tick)
+    }
+
+    // Main Effect (Desktop Only)
+    useEffect(() => {
+        if (!mounted || isMobile) return; // Skip if mobile
+        if (!containerRef.current || !svgRef.current) return
+
+        noiseRef.current = createNoise2D()
+        setSize()
+        setLines()
+
+        window.addEventListener('resize', onResize)
+        window.addEventListener('mousemove', onMouseMove)
+        containerRef.current.addEventListener('touchmove', onTouchMove, { passive: false })
+        rafRef.current = requestAnimationFrame(tick)
+
+        return () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current)
+            window.removeEventListener('resize', onResize)
+            window.removeEventListener('mousemove', onMouseMove)
+            containerRef.current?.removeEventListener('touchmove', onTouchMove)
+        }
+    }, [mounted, isMobile]);
+
+    // Return null server-side
+    if (!mounted) return <div className={`absolute inset-0 ${className}`} style={{ backgroundColor }} />;
+
+    // MOBILE: Revert to Static Gradient
+    if (isMobile) {
+        return <StaticWaveBackground backgroundColor={backgroundColor} />;
     }
 
     return (
