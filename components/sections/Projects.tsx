@@ -357,7 +357,7 @@ export default function Projects() {
                 </div>
 
                 {/* Show More / Show Less Button */}
-                {!showAll && totalProjects > initialProjectCount && (
+                {!showAll && filteredProjects.length > INITIAL_COUNT && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -367,8 +367,16 @@ export default function Projects() {
                             onClick={() => setShowAll(true)}
                             className="relative px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 overflow-hidden group"
                         >
-                            )}
-                        </Button>
+                            {/* Liquid glass layers */}
+                            <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/15 to-white/10" />
+                            <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_15px_rgba(255,255,255,0.1)] rounded-full pointer-events-none group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_25px_rgba(255,255,255,0.2)]" />
+
+                            <span className="relative z-10 flex items-center gap-2">
+                                Show More Projects
+                                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                            </span>
+                        </button>
                     </motion.div>
                 )}
             </div>
