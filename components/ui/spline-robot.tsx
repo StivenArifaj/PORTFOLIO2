@@ -10,28 +10,7 @@ export default function SplineRobot() {
     const viewerRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // MOBILE: Lightweight animated icon (0% CPU)
-    if (isMobile) {
-        return (
-            <div className="w-full h-full flex items-center justify-center relative">
-                <div className="relative">
-                    {/* Glowing ring */}
-                    <div className="absolute inset-0 w-48 h-48 rounded-full bg-gradient-to-br from-accent-cyan/30 to-accent-blue/20 blur-xl animate-pulse" />
-
-                    {/* Robot icon container */}
-                    <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-800 border border-white/10 flex items-center justify-center shadow-2xl">
-                        <Bot className="w-24 h-24 text-accent-cyan" strokeWidth={1.5} />
-                    </div>
-
-                    {/* Orbit ring */}
-                    <div className="absolute inset-[-20px] border border-accent-cyan/20 rounded-full animate-spin" style={{ animationDuration: '10s' }} />
-                </div>
-            </div>
-        );
-    }
-
-    // DESKTOP: Lazy Load Logic
-    // Only load the heavy 3D script when the element is actually visible
+    // DESKTOP: Lazy Load Logic - MUST be called before any early returns (React Rules of Hooks)
     useEffect(() => {
         if (isMobile) return;
 
@@ -62,7 +41,6 @@ export default function SplineRobot() {
 
         return () => {
             if (document.body.contains(script)) {
-                // Check if body still exists before removing
                 try {
                     document.body.removeChild(script);
                 } catch (e) {
@@ -71,6 +49,26 @@ export default function SplineRobot() {
             }
         };
     }, [shouldLoad, isMobile]);
+
+    // MOBILE: Lightweight animated icon (0% CPU) - Early return AFTER all hooks
+    if (isMobile) {
+        return (
+            <div className="w-full h-full flex items-center justify-center relative">
+                <div className="relative">
+                    {/* Glowing ring */}
+                    <div className="absolute inset-0 w-48 h-48 rounded-full bg-gradient-to-br from-accent-cyan/30 to-accent-blue/20 blur-xl animate-pulse" />
+
+                    {/* Robot icon container */}
+                    <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-800 border border-white/10 flex items-center justify-center shadow-2xl">
+                        <Bot className="w-24 h-24 text-accent-cyan" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Orbit ring */}
+                    <div className="absolute inset-[-20px] border border-accent-cyan/20 rounded-full animate-spin" style={{ animationDuration: '10s' }} />
+                </div>
+            </div>
+        );
+    }
 
     if (!shouldLoad) {
         return (
