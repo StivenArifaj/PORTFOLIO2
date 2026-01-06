@@ -20,6 +20,9 @@ const Skills = dynamic(() => import("@/components/sections/Skills"), {
 const Journey = dynamic(() => import("@/components/sections/Journey"), {
   ssr: true,
 });
+const Stats = dynamic(() => import("@/components/sections/Stats"), {
+  ssr: true,
+});
 const Contact = dynamic(() => import("@/components/sections/Contact"), {
   ssr: true,
 });
@@ -38,6 +41,7 @@ export default function Home() {
       <Startup />
       <Projects />
       <Skills />
+      <Stats />
       <Journey />
       <Contact />
       <Footer />

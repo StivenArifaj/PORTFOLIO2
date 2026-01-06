@@ -124,10 +124,19 @@ export default function Projects() {
     const [showAll, setShowAll] = useState(false);
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<{ title: string; screenshots: string[] } | null>(null);
+    const [activeFilter, setActiveFilter] = useState<string>('all');
 
     const INITIAL_COUNT = 6;
-    const displayedProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
-    const hasMoreProjects = projects.length > INITIAL_COUNT;
+
+    // Filter projects based on active filter
+    const filteredProjects = activeFilter === 'all'
+        ? projects
+        : projects.filter(p => p.category === activeFilter);
+
+    const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, INITIAL_COUNT);
+    const hasMoreProjects = filteredProjects.length > INITIAL_COUNT;
+
+    const categories = ['all', 'WEB APP', 'MOBILE APP', 'SAAS', 'UTILITY'];
 
     const openGallery = (title: string, screenshots: string[]) => {
         setSelectedProject({ title, screenshots });
@@ -149,6 +158,27 @@ export default function Projects() {
                     <p className="text-xl text-neutral-200 max-w-2xl mx-auto font-poppins">
                         A showcase of innovative projects merging design and technology.
                     </p>
+
+                    {/* Filter Buttons */}
+                    <div className="flex flex-wrap justify-center gap-3 mt-8">
+                        {categories.map((category) => (
+                            <motion.button
+                                key={category}
+                                onClick={() => {
+                                    setActiveFilter(category);
+                                    setShowAll(false);
+                                }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`px-6 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 ${activeFilter === category
+                                        ? 'bg-gradient-to-r from-accent-cyan to-accent-green text-black shadow-[0_0_20px_rgba(46,230,255,0.5)]'
+                                        : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'
+                                    }`}
+                            >
+                                {category === 'all' ? 'All Projects' : category}
+                            </motion.button>
+                        ))}
+                    </div>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
