@@ -38,20 +38,29 @@ export default function About() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             {cards.map((item, idx) => (
-                                <div key={idx} className="relative h-32 rounded-2xl liquid-glass overflow-hidden group">
-                                    <GlowingEffect
-                                        spread={40}
-                                        glow={true}
-                                        disabled={false}
-                                        proximity={64}
-                                        inactiveZone={0.01}
-                                    />
-                                    <div className="relative z-10 flex flex-col items-center justify-center h-full p-4 text-center">
-                                        {item.icon}
-                                        <span className="text-xs text-neutral-300 mb-1 uppercase tracking-wider">{item.title}</span>
-                                        <span className="text-md font-semibold text-white">{item.value}</span>
+                                <GlowingEffect
+                                    key={idx}
+                                    spread={60}
+                                    glow={true}
+                                    disabled={false}
+                                    proximity={120}
+                                    inactiveZone={0.01}
+                                    borderWidth={2}
+                                >
+                                    <div className="relative h-32 rounded-2xl overflow-hidden group">
+                                        {/* Liquid glass layers */}
+                                        <div className="absolute inset-0 bg-white/5 backdrop-blur-xl" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
+                                        <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-2xl pointer-events-none" />
+
+                                        {/* Content */}
+                                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4 text-center">
+                                            {item.icon}
+                                            <span className="text-xs text-neutral-300 mb-1 uppercase tracking-wider">{item.title}</span>
+                                            <span className="text-md font-semibold text-white">{item.value}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </GlowingEffect>
                             ))}
                         </div>
                     </motion.div>

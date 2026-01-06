@@ -153,9 +153,17 @@ export default function Startup() {
                         </ul>
 
                         <Link href="https://moneyrush.vercel.app" target="_blank" className="inline-block mt-6">
-                            <button className="group flex items-center gap-2 px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]">
-                                Visit FinCity
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <button className="group relative px-8 py-4 rounded-full font-semibold transition-all overflow-hidden">
+                                {/* Liquid glass layers */}
+                                <div className="absolute inset-0 bg-white/10 backdrop-blur-xl" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/15 via-white/20 to-white/15" />
+                                <div className="absolute inset-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.3),0_0_20px_rgba(255,255,255,0.2)] rounded-full pointer-events-none group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.3),0_0_30px_rgba(255,255,255,0.3)]" />
+
+                                {/* Content */}
+                                <span className="relative z-10 flex items-center gap-2 text-white">
+                                    Visit FinCity
+                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </span>
                             </button>
                         </Link>
                     </div>
