@@ -32,10 +32,19 @@
 
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-green: var(--accent-green);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-accent-warm: var(--accent-warm);
+  --color-accent-blue: var(--accent-blue);
   --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-elevated: var(--bg-elevated);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
   --color-border-color: var(--border-color);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-emphasis: var(--border-emphasis);
   --color-accent-gray: var(--accent-gray);
 
   --radius-lg: var(--radius);
@@ -112,12 +121,36 @@
   --chart-4: 0 0% 60%;
   --chart-5: 0 0% 70%;
 
+  /* Enhanced Brand Colors */
   --accent-cyan: #2EE6FF;
   --accent-green: #7CFFB2;
-  --bg-primary: #121212;
-  --text-primary: #E0E0E0;
-  --text-secondary: #B0B0B0;
+  --accent-tertiary: #A78BFA;
+  /* Purple for variety */
+  --accent-warm: #FF6B9D;
+  /* Pink for CTAs */
+  --accent-blue: #60A5FA;
+  /* Additional blue */
+
+  /* Layered Backgrounds for Depth */
+  --bg-primary: #0A0A0A;
+  /* Darkest */
+  --bg-secondary: #121212;
+  /* Current base */
+  --bg-elevated: #1A1A1A;
+  /* Lighter cards */
+  --bg-glass: rgba(255, 255, 255, 0.03);
+
+  /* Refined Text Hierarchy */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-tertiary: #B0B0B0;
+  --text-muted: #808080;
+
+  /* Borders & Dividers */
   --border-color: #444444;
+  --border-subtle: #2A2A2A;
+  --border-emphasis: #555555;
+
   --accent-gray: #888888;
 }
 
@@ -163,7 +196,8 @@
 
   @media (max-width: 768px) {
     .liquid-glass {
-      backdrop-filter: blur(4px); /* Optimized for mobile */
+      backdrop-filter: blur(4px);
+      /* Optimized for mobile */
     }
   }
 }

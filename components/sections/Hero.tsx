@@ -48,7 +48,7 @@ export default function Hero() {
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8 items-center pointer-events-auto">
                     <Link href="#projects">
-                        <LiquidGlassButton className="w-48 h-14">
+                        <LiquidGlassButton className="w-48 h-14 bg-gradient-to-r from-[#FF6B9D] to-[#FF8FAB] hover:shadow-[0_0_40px_rgba(255,107,157,0.6)]">
                             View Work
                         </LiquidGlassButton>
                     </Link>
