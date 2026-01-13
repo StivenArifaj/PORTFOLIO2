@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowUpRight, Github, ChevronDown, ChevronUp, X, ChevronLeft, ChevronRight, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useCallback } from "react";
+import { useMobile } from "@/hooks/use-mobile";
 
 // Screenshot Gallery Modal for Mobile Apps
 function ScreenshotGallery({
@@ -121,10 +122,11 @@ function ScreenshotGallery({
 }
 
 export default function Projects() {
+    const isMobile = useMobile();
+    const [activeFilter, setActiveFilter] = useState('all');
     const [showAll, setShowAll] = useState(false);
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<{ title: string; screenshots: string[] } | null>(null);
-    const [activeFilter, setActiveFilter] = useState<string>('all');
 
     const INITIAL_COUNT = 6;
 
@@ -159,7 +161,7 @@ export default function Projects() {
                         A showcase of innovative projects merging design and technology.
                     </p>
 
-                    {/* Filter Buttons - TRUE Liquid Glass */}
+                    {/* Filter Buttons - Optimized for mobile */}
                     <div className="flex flex-wrap justify-center gap-3 mt-8">
                         {categories.map((category) => (
                             <motion.button
@@ -168,19 +170,23 @@ export default function Projects() {
                                     setActiveFilter(category);
                                     setShowAll(false);
                                 }}
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={isMobile ? {} : { scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative isolate px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 overflow-hidden shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] ${activeFilter === category ? 'text-black' : 'text-white/90'
+                                className={`relative px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-200 overflow-hidden touch-manipulation ${isMobile
+                                        ? (activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green text-black' : 'bg-white/10 backdrop-blur-sm border border-white/10 text-white/90')
+                                        : `isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] ${activeFilter === category ? 'text-black' : 'text-white/90'}`
                                     }`}
                             >
-                                {/* TRUE Liquid Glass Layers */}
-                                <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
-                                <div className={`absolute inset-0 z-10 ${activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green' : 'bg-white/25'}`} />
-                                <div className="absolute inset-0 z-20 rounded-[inherit] shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
-
-                                {/* Glow for active */}
-                                {activeFilter === category && (
-                                    <div className="absolute inset-0 shadow-[0_0_20px_rgba(46,230,255,0.5)]" />
+                                {/* Liquid Glass Layers - Desktop only */}
+                                {!isMobile && (
+                                    <>
+                                        <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                                        <div className={`absolute inset-0 z-10 ${activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green' : 'bg-white/25'}`} />
+                                        <div className="absolute inset-0 z-20 rounded-[inherit] shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                                        {activeFilter === category && (
+                                            <div className="absolute inset-0 shadow-[0_0_20px_rgba(46,230,255,0.5)]" />
+                                        )}
+                                    </>
                                 )}
 
                                 <span className="relative z-30">{category === 'all' ? 'All Projects' : category}</span>
@@ -194,21 +200,27 @@ export default function Projects() {
                         {displayedProjects.map((project, index) => (
                             <motion.div
                                 key={project.id}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ delay: index * 0.1, duration: 0.5 }}
-                                layout
-                                className="relative h-full rounded-[2.5rem] liquid-glass"
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ delay: isMobile ? index * 0.05 : index * 0.1, duration: isMobile ? 0.3 : 0.5 }}
+                                layout={!isMobile}
+                                className={`relative h-full rounded-[2.5rem] ${isMobile
+                                        ? 'bg-white/5 backdrop-blur-sm border border-white/10'
+                                        : 'liquid-glass'
+                                    }`}
                             >
-                                <GlowingEffect
-                                    spread={60}
-                                    glow={true}
-                                    disabled={false}
-                                    proximity={64}
-                                    inactiveZone={0.01}
-                                    borderWidth={3}
-                                />
+                                {/* GlowingEffect - Desktop only */}
+                                {!isMobile && (
+                                    <GlowingEffect
+                                        spread={60}
+                                        glow={true}
+                                        disabled={false}
+                                        proximity={64}
+                                        inactiveZone={0.01}
+                                        borderWidth={3}
+                                    />
+                                )}
 
                                 <div className="relative z-10 h-full flex flex-col p-6">
                                     {/* Project Image Area */}

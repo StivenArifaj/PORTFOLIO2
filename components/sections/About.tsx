@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from "framer-motion";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { MapPin, GraduationCap, Code2 } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
 import dynamic from "next/dynamic";
 const SplineRobot = dynamic(() => import("@/components/ui/spline-robot"), {
     ssr: false,
@@ -10,6 +11,8 @@ const SplineRobot = dynamic(() => import("@/components/ui/spline-robot"), {
 });
 
 export default function About() {
+    const isMobile = useMobile();
+
     const cards = [
         { title: "Location", value: "Albania", icon: <MapPin className="w-6 h-6 mb-2 text-accent-cyan" /> },
         { title: "Field", value: "Software Engineering", icon: <GraduationCap className="w-6 h-6 mb-2 text-accent-green" /> },
@@ -22,9 +25,10 @@ export default function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left Column: Info */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: isMobile ? 0.3 : 0.8 }}
+                        viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">
                             Who I Am
@@ -39,21 +43,30 @@ export default function About() {
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             {cards.map((item, idx) => (
                                 <div key={idx} className="relative isolate">
-                                    <div className="relative h-32 rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]">
-                                        {/* TRUE Liquid Glass Layers */}
-                                        <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
-                                        <div className="absolute inset-0 z-10 bg-white/25" />
-                                        <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                                    <div className={`relative h-32 rounded-2xl overflow-hidden transition-all duration-300 ${isMobile
+                                            ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                                            : 'shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                                        }`}>
+                                        {/* Liquid Glass Layers - Simplified on mobile */}
+                                        {!isMobile && (
+                                            <>
+                                                <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                                                <div className="absolute inset-0 z-10 bg-white/25" />
+                                                <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                                            </>
+                                        )}
 
-                                        {/* Glowing Effect for neon borders */}
-                                        <GlowingEffect
-                                            spread={60}
-                                            glow={true}
-                                            disabled={false}
-                                            proximity={120}
-                                            inactiveZone={0.01}
-                                            borderWidth={2}
-                                        />
+                                        {/* Glowing Effect - Desktop only */}
+                                        {!isMobile && (
+                                            <GlowingEffect
+                                                spread={60}
+                                                glow={true}
+                                                disabled={false}
+                                                proximity={120}
+                                                inactiveZone={0.01}
+                                                borderWidth={2}
+                                            />
+                                        )}
 
                                         {/* Content */}
                                         <div className="relative z-30 flex flex-col items-center justify-center h-full p-4 text-center">

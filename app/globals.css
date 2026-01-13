@@ -229,3 +229,104 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU Acceleration for Smooth Animations */
+@layer utilities {
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
+/* Mobile-Specific Optimizations */
+@media (max-width: 767px) {
+
+  /* Disable expensive tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Faster touch response */
+  button,
+  a,
+  [role="button"],
+  .touchable {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+
+  /* Prevent overscroll bounce for native feel */
+  html {
+    overscroll-behavior: none;
+  }
+
+  /* Smooth momentum scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Disable heavy SVG filters on mobile for 60fps */
+  .mobile-no-filter [filter*="url"] {
+    filter: none !important;
+  }
+
+  /* Simplified glass effect for mobile - no SVG filter */
+  .liquid-glass-mobile {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    filter: none !important;
+  }
+
+  /* Reduce animation complexity */
+  .reduce-motion {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+
+  /* Smaller shadows for mobile performance */
+  .shadow-mobile {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch Target Sizes (Minimum 44px for accessibility) */
+@media (max-width: 767px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Performance: Will-change hints for animated elements */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Safe area insets for notched phones */
+@supports (padding: max(0px)) {
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+}

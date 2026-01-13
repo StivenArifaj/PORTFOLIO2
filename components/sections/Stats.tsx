@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Trophy, Briefcase, Code2, Award } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface StatCounterProps {
     end: number;
@@ -12,16 +13,19 @@ interface StatCounterProps {
 }
 
 function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounterProps) {
+    const isMobile = useMobile();
     const [count, setCount] = useState(0);
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
 
     useEffect(() => {
         if (isInView) {
+            // Faster animation on mobile
+            const animDuration = isMobile ? duration * 0.5 : duration;
             let startTime: number | null = null;
             const animate = (timestamp: number) => {
                 if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+                const progress = Math.min((timestamp - startTime) / (animDuration * 1000), 1);
 
                 setCount(Math.floor(progress * end));
 
@@ -31,22 +35,29 @@ function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounte
             };
             requestAnimationFrame(animate);
         }
-    }, [isInView, end, duration]);
+    }, [isInView, end, duration, isMobile]);
 
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: isMobile ? 0.3 : 0.6 }}
             className="relative group"
         >
-            <div className="relative isolate p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]">
-                {/* TRUE Liquid Glass Layers */}
-                <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
-                <div className="absolute inset-0 z-10 bg-white/25" />
-                <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
-                <div className="absolute inset-0 border border-white/10 group-hover:border-accent-cyan/50 transition-all rounded-2xl pointer-events-none" />
+            <div className={`relative p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 ${isMobile
+                    ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                    : 'isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                }`}>
+                {/* Liquid Glass Layers - Desktop only */}
+                {!isMobile && (
+                    <>
+                        <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                        <div className="absolute inset-0 z-10 bg-white/25" />
+                        <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                        <div className="absolute inset-0 border border-white/10 group-hover:border-accent-cyan/50 transition-all rounded-2xl pointer-events-none" />
+                    </>
+                )}
 
                 {/* Content */}
                 <div className="relative z-30 flex flex-col items-center text-center">

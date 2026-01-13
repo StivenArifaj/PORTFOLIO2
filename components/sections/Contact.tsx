@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Send, Mail, Github, Linkedin, Twitter, CheckCircle2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMobile } from "@/hooks/use-mobile";
 
 export default function Contact() {
+    const isMobile = useMobile();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [status, setStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: '' });
 
@@ -44,30 +46,39 @@ export default function Contact() {
 
     return (
         <section id="contact" className="relative min-h-screen w-full flex items-center justify-center bg-neutral-950 overflow-hidden py-20">
-            <div className="absolute inset-0 w-full h-full">
-                <CanvasRevealEffect
-                    animationSpeed={3}
-                    containerClassName="bg-neutral-950"
-                    colors={[[255, 255, 255]]}
-                    dotSize={2}
-                    opacities={[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 1]}
-                />
-            </div>
+            {/* Canvas Reveal - Desktop only for performance */}
+            {!isMobile && (
+                <div className="absolute inset-0 w-full h-full">
+                    <CanvasRevealEffect
+                        animationSpeed={3}
+                        containerClassName="bg-neutral-950"
+                        colors={[[255, 255, 255]]}
+                        dotSize={2}
+                        opacities={[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 1]}
+                    />
+                </div>
+            )}
 
             <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: isMobile ? 1 : 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="w-full max-w-4xl relative isolate rounded-[2rem] p-8 md:p-12 overflow-hidden group shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]"
+                    transition={{ duration: isMobile ? 0.3 : 0.8 }}
+                    viewport={{ once: true }}
+                    className={`w-full max-w-4xl relative rounded-[2rem] p-8 md:p-12 overflow-hidden group ${isMobile
+                            ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                            : 'isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                        }`}
                 >
-                    {/* TRUE Liquid Glass Layers */}
-                    <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
-                    <div className="absolute inset-0 z-10 bg-white/25" />
-                    <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
-
-                    {/* Subtle top sheen */}
-                    <div className="absolute inset-x-0 top-0 h-px z-30 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                    {/* Liquid Glass Layers - Desktop only */}
+                    {!isMobile && (
+                        <>
+                            <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                            <div className="absolute inset-0 z-10 bg-white/25" />
+                            <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+                            <div className="absolute inset-x-0 top-0 h-px z-30 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                        </>
+                    )}
 
                     <div className="relative z-30 grid grid-cols-1 md:grid-cols-2 gap-12">
                         <div className="space-y-6">

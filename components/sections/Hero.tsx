@@ -6,6 +6,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import Link from "next/link";
 import { LiquidGlassButton } from "@/components/ui/liquid-glass-button";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
+import { useMobile } from "@/hooks/use-mobile";
 
 // Client-Only import for WaveBackground to avoid hydration mismatches
 import dynamic from "next/dynamic";
@@ -14,6 +15,7 @@ const WaveBackground = dynamic(() => import("@/components/ui/wave-background").t
 });
 
 export default function Hero() {
+    const isMobile = useMobile();
     const tagline = "Software Engineer | Founder | Creative Developer";
 
     return (
@@ -25,13 +27,14 @@ export default function Hero() {
 
             {/* Lamp Removed for Debugging */}
             <motion.div
-                initial={{ opacity: 0.5, y: 100 }}
+                initial={{ opacity: isMobile ? 0.8 : 0.5, y: isMobile ? 30 : 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{
-                    delay: 0.3,
-                    duration: 0.8,
+                    delay: isMobile ? 0.1 : 0.3,
+                    duration: isMobile ? 0.4 : 0.8,
                     ease: "easeInOut",
                 }}
+                viewport={{ once: true }}
                 className="relative z-10 flex flex-col items-center gap-6 pointer-events-none"
             >
                 {/* Animated Shiny Text for Name - Clean Layout */}
