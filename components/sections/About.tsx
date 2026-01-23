@@ -10,6 +10,10 @@ const SplineRobot = dynamic(() => import("@/components/ui/spline-robot"), {
     loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-12 h-12 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" /></div>
 });
 
+const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
+    ssr: false,
+});
+
 export default function About() {
     const isMobile = useMobile();
 
@@ -21,6 +25,14 @@ export default function About() {
 
     return (
         <section id="about" className="py-20 lg:py-32 bg-background relative overflow-hidden">
+            {/* Background Animation Video */}
+            {/* Star Background */}
+            <div className="absolute inset-0 w-full h-full z-0">
+                <StarsCanvas />
+                {/* Subtle gradient overlay for better text contrast if needed */}
+                <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/20 to-background/90" />
+            </div>
+
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left Column: Info */}
@@ -44,8 +56,8 @@ export default function About() {
                             {cards.map((item, idx) => (
                                 <div key={idx} className="relative isolate">
                                     <div className={`relative h-32 rounded-2xl overflow-hidden transition-all duration-300 ${isMobile
-                                            ? 'bg-white/10 backdrop-blur-sm border border-white/10'
-                                            : 'shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                                        ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                                        : 'shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
                                         }`}>
                                         {/* Liquid Glass Layers - Simplified on mobile */}
                                         {!isMobile && (

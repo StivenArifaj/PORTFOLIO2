@@ -45,14 +45,17 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="relative min-h-screen w-full flex items-center justify-center bg-neutral-950 overflow-hidden py-20">
+        <section id="contact" className="relative min-h-screen w-full flex items-center justify-center bg-[#030014] overflow-hidden py-20">
             {/* Canvas Reveal - Desktop only for performance */}
             {!isMobile && (
                 <div className="absolute inset-0 w-full h-full">
                     <CanvasRevealEffect
                         animationSpeed={3}
-                        containerClassName="bg-neutral-950"
-                        colors={[[255, 255, 255]]}
+                        containerClassName="bg-[#030014]"
+                        colors={[
+                            [229, 156, 255], // Space Purple (#e59cff)
+                            [156, 178, 255], // Space Blue (#9cb2ff)
+                        ]}
                         dotSize={2}
                         opacities={[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 1]}
                     />
@@ -66,8 +69,8 @@ export default function Contact() {
                     transition={{ duration: isMobile ? 0.3 : 0.8 }}
                     viewport={{ once: true }}
                     className={`w-full max-w-4xl relative rounded-[2rem] p-8 md:p-12 overflow-hidden group ${isMobile
-                            ? 'bg-white/10 backdrop-blur-sm border border-white/10'
-                            : 'isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                        ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                        : 'isolate shadow-[0_0_50px_rgba(42,14,97,0.4)] bg-[#0f0c29]/50'
                         }`}
                 >
                     {/* Liquid Glass Layers - Desktop only */}

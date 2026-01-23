@@ -46,8 +46,8 @@ function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounte
             className="relative group"
         >
             <div className={`relative p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 ${isMobile
-                    ? 'bg-white/10 backdrop-blur-sm border border-white/10'
-                    : 'isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
+                ? 'bg-white/10 backdrop-blur-sm border border-white/10'
+                : 'isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]'
                 }`}>
                 {/* Liquid Glass Layers - Desktop only */}
                 {!isMobile && (
@@ -76,9 +76,17 @@ function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounte
     );
 }
 
+import dynamic from "next/dynamic";
+const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
+    ssr: false,
+});
+
 export default function Stats() {
     return (
         <section id="stats" className="py-20 lg:py-32 bg-gradient-to-b from-background via-neutral-950 to-background relative overflow-hidden">
+            <div className="absolute inset-0 z-0">
+                <StarsCanvas />
+            </div>
             {/* Background decoration */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-cyan rounded-full blur-[120px]" />

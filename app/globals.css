@@ -95,85 +95,101 @@
 }
 
 :root {
-  --background: 0 0% 7%;
-  --foreground: 0 0% 88%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 88%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 88%;
-  --primary: 0 0% 88%;
-  --primary-foreground: 0 0% 7%;
-  --secondary: 0 0% 53%;
-  --secondary-foreground: 0 0% 7%;
-  --muted: 0 0% 27%;
-  --muted-foreground: 0 0% 69%;
-  --accent: 0 0% 27%;
-  --accent-foreground: 0 0% 88%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 27%;
-  --input: 0 0% 27%;
-  --ring: 0 0% 53%;
-  --radius: 0.5rem;
-  --chart-1: 0 0% 53%;
-  --chart-2: 0 0% 40%;
-  --chart-3: 0 0% 30%;
-  --chart-4: 0 0% 60%;
-  --chart-5: 0 0% 70%;
+  /* Deep Space Theme - #030014 is 240 100% 4% in HSL approx */
+  --background: 260 85% 4%;
+  --foreground: 210 40% 98%;
 
-  /* Enhanced Brand Colors */
+  --card: 260 85% 4%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 260 85% 4%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 260 85% 4%;
+
+  --secondary: 265 89% 15%;
+  /* Deep purple secondary */
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 265 50% 15%;
+  --muted-foreground: 215 20% 65%;
+
+  --accent: 265 50% 15%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 265 30% 20%;
+  --input: 265 30% 20%;
+  --ring: 265 89% 60%;
+
+  --radius: 0.5rem;
+
+  --chart-1: 265 89% 60%;
+  --chart-2: 280 80% 60%;
+  --chart-3: 250 80% 60%;
+  --chart-4: 220 80% 60%;
+  --chart-5: 190 80% 60%;
+
+  /* Enhanced Brand Colors - Space Theme */
   --accent-cyan: #2EE6FF;
+  /* Keep Cyan for contrast */
   --accent-green: #7CFFB2;
-  --accent-tertiary: #A78BFA;
-  /* Purple for variety */
-  --accent-warm: #FF6B9D;
-  /* Pink for CTAs */
+  --accent-tertiary: #9cb2ff;
+  /* Space Blue */
+  --accent-warm: #e59cff;
+  /* Space Pink/Purple */
   --accent-blue: #60A5FA;
-  /* Additional blue */
 
   /* Layered Backgrounds for Depth */
-  --bg-primary: #0A0A0A;
-  /* Darkest */
-  --bg-secondary: #121212;
-  /* Current base */
-  --bg-elevated: #1A1A1A;
+  --bg-primary: #030014;
+  /* Deep Space Black/Blue */
+  --bg-secondary: #0f0c29;
+  /* Gradient step */
+  --bg-elevated: #1a1535;
   /* Lighter cards */
-  --bg-glass: rgba(255, 255, 255, 0.03);
+  --bg-glass: rgba(42, 14, 97, 0.3);
+  /* Purple tinted glass */
 
   /* Refined Text Hierarchy */
   --text-primary: #FFFFFF;
-  --text-secondary: #E0E0E0;
-  --text-tertiary: #B0B0B0;
-  --text-muted: #808080;
+  --text-secondary: #d4d4d8;
+  --text-tertiary: #a1a1aa;
+  --text-muted: #71717a;
 
   /* Borders & Dividers */
-  --border-color: #444444;
-  --border-subtle: #2A2A2A;
-  --border-emphasis: #555555;
+  --border-color: #2a0e61;
+  /* Deep Purple Border */
+  --border-subtle: #1a0b3b;
+  --border-emphasis: #7042f8;
+  /* Brighter Purple */
 
   --accent-gray: #888888;
 }
 
 .dark {
-  --background: 0 0% 7%;
-  --foreground: 0 0% 88%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 88%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 88%;
-  --primary: 0 0% 88%;
-  --primary-foreground: 0 0% 7%;
-  --secondary: 0 0% 53%;
-  --secondary-foreground: 0 0% 7%;
-  --muted: 0 0% 27%;
-  --muted-foreground: 0 0% 88%;
-  --accent: 0 0% 27%;
-  --accent-foreground: 0 0% 88%;
+  /* Same as root for now as this is a dark-only theme essentially */
+  --background: 260 85% 4%;
+  --foreground: 210 40% 98%;
+  --card: 260 85% 4%;
+  --card-foreground: 210 40% 98%;
+  --popover: 260 85% 4%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 265 89% 15%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 265 50% 15%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 265 50% 15%;
+  --accent-foreground: 210 40% 98%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 27%;
-  --input: 0 0% 27%;
-  --ring: 0 0% 53%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 265 30% 20%;
+  --input: 265 30% 20%;
+  --ring: 265 89% 60%;
 }
 
 @layer base {
@@ -186,18 +202,21 @@
   }
 
   .liquid-glass {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    /* Fine White Border */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
     color: white;
   }
 
   @media (max-width: 768px) {
     .liquid-glass {
-      backdrop-filter: blur(4px);
-      /* Optimized for mobile */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
   }
 }

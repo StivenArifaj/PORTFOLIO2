@@ -26,9 +26,6 @@ const Stats = dynamic(() => import("@/components/sections/Stats"), {
 const Contact = dynamic(() => import("@/components/sections/Contact"), {
   ssr: true,
 });
-const Footer = dynamic(() => import("@/components/layout/Footer"), {
-  ssr: true,
-});
 
 export default function Home() {
   return (
@@ -44,7 +41,6 @@ export default function Home() {
       <Stats />
       <Journey />
       <Contact />
-      <Footer />
     </main>
   );
 }

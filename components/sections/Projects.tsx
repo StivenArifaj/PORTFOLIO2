@@ -121,6 +121,12 @@ function ScreenshotGallery({
     );
 }
 
+// Dynamic import for StarsCanvas
+import dynamic from "next/dynamic";
+const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
+    ssr: false,
+});
+
 export default function Projects() {
     const isMobile = useMobile();
     const [activeFilter, setActiveFilter] = useState('all');
@@ -147,6 +153,9 @@ export default function Projects() {
 
     return (
         <section id="projects" className="py-24 relative overflow-hidden bg-background">
+            <div className="absolute inset-0 z-0">
+                <StarsCanvas />
+            </div>
             <div className="container mx-auto px-4 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -172,9 +181,9 @@ export default function Projects() {
                                 }}
                                 whileHover={isMobile ? {} : { scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-200 overflow-hidden touch-manipulation ${isMobile
-                                        ? (activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green text-black' : 'bg-white/10 backdrop-blur-sm border border-white/10 text-white/90')
-                                        : `isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] ${activeFilter === category ? 'text-black' : 'text-white/90'}`
+                                className={`relative px-6 py-2.5 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 overflow-hidden touch-manipulation ${isMobile
+                                    ? (activeFilter === category ? 'bg-gradient-to-r from-accent-cyan to-accent-green text-black' : 'bg-white/10 backdrop-blur-sm border border-white/10 text-white/90')
+                                    : `isolate shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] hover:shadow-[0_0_30px_rgba(156,178,255,0.4)] ${activeFilter === category ? 'text-black' : 'text-white/90'}`
                                     }`}
                             >
                                 {/* Liquid Glass Layers - Desktop only */}
@@ -206,8 +215,8 @@ export default function Projects() {
                                 transition={{ delay: isMobile ? index * 0.05 : index * 0.1, duration: isMobile ? 0.3 : 0.5 }}
                                 layout={!isMobile}
                                 className={`relative h-full rounded-[2.5rem] ${isMobile
-                                        ? 'bg-white/5 backdrop-blur-sm border border-white/10'
-                                        : 'liquid-glass'
+                                    ? 'bg-white/5 backdrop-blur-sm border border-white/10'
+                                    : 'liquid-glass'
                                     }`}
                             >
                                 {/* GlowingEffect - Desktop only */}

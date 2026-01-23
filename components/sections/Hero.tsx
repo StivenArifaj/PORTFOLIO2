@@ -22,7 +22,7 @@ export default function Hero() {
         <section id="hero" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
             {/* Wave Background behind everything */}
             <div className="absolute inset-0 z-0">
-                <WaveBackground />
+                <WaveBackground backgroundColor="#030014" strokeColor="rgba(156, 178, 255, 0.5)" />
             </div>
 
             {/* Lamp Removed for Debugging */}
@@ -51,7 +51,7 @@ export default function Hero() {
                 {/* Buttons */}
                 <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8 items-center pointer-events-auto">
                     <Link href="#projects">
-                        <LiquidGlassButton className="w-48 h-14 bg-gradient-to-r from-[#FF6B9D] to-[#FF8FAB] hover:shadow-[0_0_40px_rgba(255,107,157,0.6)]">
+                        <LiquidGlassButton className="w-48 h-14">
                             View Work
                         </LiquidGlassButton>
                     </Link>

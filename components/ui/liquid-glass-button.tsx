@@ -11,18 +11,19 @@ export function LiquidGlassButton({ children, className, ...props }: LiquidGlass
     return (
         <button
             className={cn(
-                "relative px-8 py-4 rounded-full font-semibold text-white/90 transition-all duration-300 isolate flex items-center justify-center",
-                "bg-white/25 hover:bg-white/30 backdrop-blur-[0px]",
-                "[text-shadow:0_2px_4px_rgba(0,0,0,0.1)]", // Approximate text-shadow: 0 2px 4px rgb(0 0 0 / 10%)
-                "shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)]", // Base shadow
-                "hover:shadow-[0_0_50px_rgba(255,255,255,0.8)]", // Shining hover effect
-                "active:scale-95", // Add some click feedback
-                // Before pseudo-element for glass distortion
-                "before:absolute before:inset-0 before:rounded-[inherit] before:backdrop-blur-[0px] before:-z-10",
+                "relative px-8 py-4 rounded-full font-semibold text-white/95 transition-all duration-300 isolate flex items-center justify-center",
+                "bg-white/10 hover:bg-white/15 backdrop-blur-md",
+                "[text-shadow:0_1px_2px_rgba(0,0,0,0.2)]",
+                "shadow-[0_8px_32px_rgba(0,0,0,0.15)]",
+                "hover:shadow-[0_8px_40px_rgba(255,255,255,0.15),0_0_60px_rgba(156,178,255,0.2)]",
+                "active:scale-95",
+                "border border-white/20",
+                // Before pseudo-element for subtle glass distortion
+                "before:absolute before:inset-0 before:rounded-[inherit] before:backdrop-blur-sm before:-z-10",
                 "before:[filter:url(#lg-dist)]",
-                // After pseudo-element for outline shine
+                // After pseudo-element for premium inner glow
                 "after:absolute after:inset-0 after:rounded-[inherit] after:pointer-events-none",
-                "after:shadow-[inset_2px_2px_1px_0_rgba(255,255,255,0.5),inset_-1px_-1px_1px_1px_rgba(255,255,255,0.5)]",
+                "after:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),inset_0_-1px_1px_rgba(255,255,255,0.1)]",
                 className
             )}
             {...props}

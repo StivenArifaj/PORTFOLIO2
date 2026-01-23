@@ -1,6 +1,11 @@
 "use client";
+import dynamic from "next/dynamic";
 import { Timeline } from "@/components/ui/timeline";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+
+const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
+    ssr: false,
+});
 
 export default function Journey() {
     const data = [
@@ -118,8 +123,13 @@ export default function Journey() {
     ];
 
     return (
-        <section id="journey" className="bg-background w-full">
-            <Timeline data={data} />
+        <section id="journey" className="bg-background w-full relative">
+            <div className="absolute inset-0 z-0 h-full w-full">
+                <StarsCanvas />
+            </div>
+            <div className="relative z-10">
+                <Timeline data={data} />
+            </div>
         </section>
     );
 }

@@ -1,38 +1,17 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Bot } from 'lucide-react';
 import { useMobile } from '@/hooks/use-mobile';
 
 export default function SplineRobot() {
     const isMobile = useMobile();
-    const [shouldLoad, setShouldLoad] = useState(false);
     const viewerRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // DESKTOP: Lazy Load Logic - MUST be called before any early returns (React Rules of Hooks)
+    // DESKTOP: Load Spline Script Immediately
     useEffect(() => {
         if (isMobile) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setShouldLoad(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, [isMobile]);
-
-    useEffect(() => {
-        if (!shouldLoad || isMobile) return;
 
         const script = document.createElement('script');
         script.type = 'module';
@@ -48,9 +27,9 @@ export default function SplineRobot() {
                 }
             }
         };
-    }, [shouldLoad, isMobile]);
+    }, [isMobile]);
 
-    // MOBILE: Lightweight animated icon (0% CPU) - Early return AFTER all hooks
+    // MOBILE: Lightweight animated icon (0% CPU) - Early return
     if (isMobile) {
         return (
             <div className="w-full h-full flex items-center justify-center relative">
@@ -70,14 +49,7 @@ export default function SplineRobot() {
         );
     }
 
-    if (!shouldLoad) {
-        return (
-            <div ref={containerRef} className="w-full h-full flex items-center justify-center relative">
-                <div className="w-12 h-12 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" />
-            </div>
-        );
-    }
-
+    // DESKTOP: Spline Viewer
     return (
         <div ref={containerRef} className="w-full h-full flex items-center justify-center relative overflow-hidden">
             {/* @ts-ignore */}
