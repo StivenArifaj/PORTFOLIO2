@@ -66,10 +66,9 @@ export default function Startup() {
     }, []);
 
     return (
-        <section id="startup" className="py-12 lg:py-20 relative overflow-hidden bg-background min-h-screen flex items-center">
+        <section id="startup" className="py-12 lg:py-20 relative overflow-hidden min-h-screen flex items-center">
             {/* Background Paths usage */}
             <div className="absolute inset-0 z-0">
-                <StarsCanvas />
                 <FloatingPaths position={1} />
                 <FloatingPaths position={-1} />
             </div>
@@ -107,18 +106,10 @@ export default function Startup() {
                             {/* iPhone Notch */}
                             <div className="w-28 h-6 bg-black absolute top-0 left-1/2 transform -translate-x-1/2 rounded-b-xl z-20 pointer-events-none" />
 
-                            {/* Mobile: Static screenshot (fast) - Default Fallback */}
-                            {(!mounted || isMobile) ? (
-                                <div className="w-full h-full relative">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src="/screenshots/moneyrush-1.png"
-                                        alt="MoneyRush App Screenshot"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
+                            {/* Desktop & Mobile: Live Website Iframe */}
+                            {!mounted ? (
+                                <div className="w-full h-full relative animate-pulse bg-neutral-900" />
                             ) : (
-                                /* Desktop: Live Website Iframe - Only if mounted AND desktop */
                                 <iframe
                                     src="https://moneyrush.vercel.app"
                                     className="w-full h-full border-0 bg-white"

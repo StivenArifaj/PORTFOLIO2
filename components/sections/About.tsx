@@ -5,7 +5,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { MapPin, GraduationCap, Code2 } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
 import dynamic from "next/dynamic";
-const SplineRobot = dynamic(() => import("@/components/ui/spline-robot"), {
+const SplineRobot = dynamic(() => import("@/components/ui/spline-robot-wrapper"), {
     ssr: false,
     loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-12 h-12 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" /></div>
 });
@@ -24,13 +24,10 @@ export default function About() {
     ];
 
     return (
-        <section id="about" className="py-20 lg:py-32 bg-background relative overflow-hidden">
-            {/* Background Animation Video */}
-            {/* Star Background */}
+        <section id="about" className="py-20 lg:py-32 relative overflow-hidden">
+            {/* Gradient overlay for text contrast */}
             <div className="absolute inset-0 w-full h-full z-0">
-                <StarsCanvas />
-                {/* Subtle gradient overlay for better text contrast if needed */}
-                <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/20 to-background/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030014]/50 to-transparent" />
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">

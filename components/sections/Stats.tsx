@@ -82,11 +82,9 @@ const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then
 });
 
 export default function Stats() {
+    const isMobile = useMobile();
     return (
-        <section id="stats" className="py-20 lg:py-32 bg-gradient-to-b from-background via-neutral-950 to-background relative overflow-hidden">
-            <div className="absolute inset-0 z-0">
-                <StarsCanvas />
-            </div>
+        <section id="stats" className="py-20 lg:py-32 bg-gradient-to-b from-transparent via-neutral-950/50 to-transparent relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-cyan rounded-full blur-[120px]" />

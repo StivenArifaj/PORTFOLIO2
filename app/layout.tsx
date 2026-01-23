@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
+import { StarsCanvas } from "@/components/ui/star-background";
 
 // Font configurations
 const orbitron = Orbitron({
@@ -131,7 +132,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased bg-background text-foreground overflow-x-hidden">
+      <body className="antialiased bg-[#030014] text-foreground overflow-x-hidden overflow-y-scroll">
+        <StarsCanvas />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

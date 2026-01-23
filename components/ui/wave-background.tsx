@@ -287,9 +287,9 @@ export function Waves({
         rafRef.current = requestAnimationFrame(tick)
     }
 
-    // Main Effect (Desktop Only)
+    // Main Effect
     useEffect(() => {
-        if (!mounted || isMobile) return; // Skip if mobile
+        if (!mounted) return;
         if (!containerRef.current || !svgRef.current) return
 
         noiseRef.current = createNoise2D()
@@ -307,15 +307,10 @@ export function Waves({
             window.removeEventListener('mousemove', onMouseMove)
             containerRef.current?.removeEventListener('touchmove', onTouchMove)
         }
-    }, [mounted, isMobile]);
+    }, [mounted]);
 
     // Return null server-side
     if (!mounted) return <div className={`absolute inset-0 ${className}`} style={{ backgroundColor }} />;
-
-    // MOBILE: Revert to Static Gradient
-    if (isMobile) {
-        return <StaticWaveBackground backgroundColor={backgroundColor} />;
-    }
 
     return (
         <div

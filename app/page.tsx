@@ -29,7 +29,7 @@ const Contact = dynamic(() => import("@/components/sections/Contact"), {
 
 export default function Home() {
   return (
-    <main className="bg-background min-h-screen selection:bg-[#004D61]/30 selection:text-white">
+    <main className="min-h-screen selection:bg-[#004D61]/30 selection:text-white relative">
       <ScrollProgress />
       <ScrollFixer />
       <Navbar />
