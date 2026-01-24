@@ -5,9 +5,10 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { MapPin, GraduationCap, Code2 } from "lucide-react";
 import { useMobile } from "@/hooks/use-mobile";
 import dynamic from "next/dynamic";
+
 const SplineRobot = dynamic(() => import("@/components/ui/spline-robot-wrapper"), {
     ssr: false,
-    loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-12 h-12 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" /></div>
+    loading: () => null,
 });
 
 const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
@@ -28,6 +29,19 @@ export default function About() {
             {/* Gradient overlay for text contrast */}
             <div className="absolute inset-0 w-full h-full z-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030014]/50 to-transparent" />
+            </div>
+
+            {/* Video Background */}
+            <div className="absolute inset-0 w-full h-full z-0 opacity-30 mix-blend-screen pointer-events-none">
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                >
+                    <source src="/videos/skills-bg.webm" type="video/webm" />
+                </video>
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -89,16 +103,10 @@ export default function About() {
                         </div>
                     </motion.div>
 
-                    {/* Right Column: Spline Robot (Web Component) */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="h-[500px] w-full flex items-center justify-center relative z-20 pointer-events-auto"
-                    >
-                        {/* Spline Robot Component */}
+                    {/* Right Column: Dynamic Robot Transition */}
+                    <div className="h-[500px] w-full hidden lg:flex items-center justify-center relative z-20 pointer-events-auto">
                         <SplineRobot />
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>
