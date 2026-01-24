@@ -108,20 +108,12 @@ export default function Contact() {
                                         <Github className="w-5 h-5" />
                                     </Link>
                                     <Link
-                                        href="https://linkedin.com/in/stivenarifaj"
+                                        href="https://linkedin.com/in/stivenarifaj1"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all"
                                     >
                                         <Linkedin className="w-5 h-5" />
-                                    </Link>
-                                    <Link
-                                        href="https://twitter.com/stivenarifaj"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-4 rounded-2xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all"
-                                    >
-                                        <Twitter className="w-5 h-5" />
                                     </Link>
                                 </div>
                             </div>
