@@ -103,8 +103,7 @@ export default function RootLayout({
               "image": "https://stivenarifaj.com/og-image.png",
               "sameAs": [
                 "https://github.com/stivenarifaj",
-                "https://linkedin.com/in/stivenarifaj",
-                "https://twitter.com/stivenarifaj"
+                "https://linkedin.com/in/stivenarifaj1"
               ],
               "worksFor": {
                 "@type": "Organization",
