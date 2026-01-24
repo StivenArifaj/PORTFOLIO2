@@ -104,8 +104,10 @@ export default function About() {
                     </motion.div>
 
                     {/* Right Column: Dynamic Robot Transition */}
-                    <div className="h-[500px] w-full hidden lg:flex items-center justify-center relative z-20 pointer-events-auto">
-                        <SplineRobot />
+                    <div className="h-[450px] w-full hidden lg:flex items-start justify-center relative z-20 pointer-events-auto">
+                        <div className="w-full h-full transform scale-90 origin-top">
+                            <SplineRobot />
+                        </div>
                     </div>
                 </div>
             </div>

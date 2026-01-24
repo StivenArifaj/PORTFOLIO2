@@ -284,6 +284,12 @@
     overscroll-behavior: none;
   }
 
+  /* Hide Spline Logo */
+  #spline-logo,
+  a[href="https://spline.design"] {
+    display: none !important;
+  }
+
   /* Smooth momentum scrolling */
   body {
     -webkit-overflow-scrolling: touch;

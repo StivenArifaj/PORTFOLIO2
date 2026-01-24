@@ -131,6 +131,11 @@ export default function RootLayout({
             })
           }}
         />
+
+        {/* Preload Spline assets for faster robot loading */}
+        <link rel="preload" href="/spline/spline-viewer.js" as="script" />
+        <link rel="preload" href="/spline/robot-scene.splinecode" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/spline/process.js" as="script" />
       </head>
       <body className="antialiased bg-[#030014] text-foreground overflow-x-hidden overflow-y-scroll">
         <StarsCanvas />
