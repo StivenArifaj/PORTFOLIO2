@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
 import { StarsCanvas } from "@/components/ui/star-background";
+import { DesktopRecommendation } from "@/components/ui/desktop-recommendation";
 
 // Font configurations
 const orbitron = Orbitron({
@@ -83,10 +84,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${orbitron.variable} ${poppins.variable} ${spaceMono.variable}`}
+      className={`${orbitron.variable} ${poppins.variable} ${spaceMono.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -139,6 +142,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-[#030014] text-foreground overflow-x-hidden overflow-y-scroll">
         <StarsCanvas />
+        <DesktopRecommendation />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -47,14 +47,18 @@ export function InteractiveRobotSpline({ scene, className, onLoad }: Interactive
                 if (splineEngine) {
                     const internalScene = splineEngine._scene || splineEngine.scene;
                     if (internalScene && internalScene.traverse) {
+                        let found = false;
                         // Scene is ready, hide the floor
                         internalScene.traverse((obj: any) => {
-                            if (obj.name === 'Plane') {
-                                console.log('✓ Floor hidden successfully (attempt ' + attempts + ')');
+                            // Broaden search for floor object
+                            if (obj.name === 'Plane' || obj.name === 'Floor' || obj.name === 'Ground') {
+                                console.log('✓ Floor hidden successfully:', obj.name);
                                 obj.visible = false;
+                                found = true;
                             }
                         });
 
+                        // If we processed scene, assume success for UI purposes
                         setFloorHidden(true);
                         clearInterval(intervalId);
                         if (onLoad) onLoad();
@@ -68,6 +72,7 @@ export function InteractiveRobotSpline({ scene, className, onLoad }: Interactive
             // Stop after max attempts
             if (attempts >= maxAttempts) {
                 console.warn('Could not hide floor after ' + maxAttempts + ' attempts');
+                setFloorHidden(true); // Force hide spinner anyway
                 clearInterval(intervalId);
             }
         };
@@ -99,14 +104,23 @@ export function InteractiveRobotSpline({ scene, className, onLoad }: Interactive
                     <div className="w-12 h-12 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" />
                 </div>
             )}
-            {/* @ts-ignore */}
-            <spline-viewer
-                ref={viewerRef}
-                url={scene}
-                loading-anim-type="none"
-                class="w-full h-full"
-                style={{ width: '100%', height: '100%' }}
-            />
+
+            <div className="w-full h-full" style={{ mixBlendMode: 'lighten', isolation: 'isolate' }}>
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    spline-viewer::shadow #spline-logo { display: none !important; }
+                    spline-viewer::part(logo) { display: none !important; }
+                `}} />
+
+                {/* @ts-ignore */}
+                <spline-viewer
+                    ref={viewerRef}
+                    url={scene}
+                    loading-anim-type="none"
+                    class="w-full h-full"
+                    style={{ width: '100%', height: '100%' }}
+                />
+            </div>
         </div>
     );
 }

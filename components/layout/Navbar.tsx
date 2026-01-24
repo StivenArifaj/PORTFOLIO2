@@ -75,8 +75,8 @@ export default function Navbar() {
                                                     key={item}
                                                     href={`#${item.toLowerCase()}`}
                                                     className={`text-sm font-semibold transition-all duration-300 uppercase tracking-wider drop-shadow-md hover:[text-shadow:0_0_10px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.9),0_0_30px_rgba(255,255,255,0.7),0_0_50px_rgba(255,255,255,0.5)] ${activeSection === item.toLowerCase()
-                                                            ? 'text-accent-cyan'
-                                                            : 'text-white hover:text-white'
+                                                        ? 'text-accent-cyan'
+                                                        : 'text-white hover:text-white'
                                                         }`}
                                                 >
                                                     {item}
@@ -136,10 +136,15 @@ export default function Navbar() {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="absolute right-0 top-0 bottom-0 w-64 bg-neutral-950 border-l border-white/10 p-6 shadow-2xl"
+                            className="absolute right-0 top-0 bottom-0 w-64 p-6 shadow-2xl overflow-hidden"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="flex flex-col gap-6 mt-20">
+                            {/* EXACT Liquid Glass Layers from Desktop */}
+                            <div className="absolute inset-0 z-0 backdrop-blur-[0px] [filter:url(#lg-dist)] isolate" />
+                            <div className="absolute inset-0 z-10 bg-white/25" />
+                            <div className="absolute inset-0 z-20 rounded-[inherit] overflow-hidden shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
+
+                            <div className="relative z-30 flex flex-col gap-6 mt-20">
                                 {navItems.map((item, index) => (
                                     <motion.div
                                         key={item}
@@ -150,7 +155,7 @@ export default function Navbar() {
                                         <Link
                                             href={`#${item.toLowerCase()}`}
                                             onClick={handleNavClick}
-                                            className={`block text-lg font-semibold uppercase tracking-wider transition-all duration-300 ${activeSection === item.toLowerCase()
+                                            className={`block text-lg font-semibold uppercase tracking-wider transition-all duration-300 drop-shadow-sm ${activeSection === item.toLowerCase()
                                                 ? 'text-accent-cyan'
                                                 : 'text-white hover:text-accent-cyan'
                                                 }`}

@@ -372,14 +372,20 @@ export default function Projects() {
                 </div>
 
                 {/* Show More / Show Less Button - TRUE Liquid Glass */}
-                {!showAll && filteredProjects.length > INITIAL_COUNT && (
+                {hasMoreProjects && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="flex justify-center mt-12"
                     >
                         <button
-                            onClick={() => setShowAll(true)}
+                            onClick={() => {
+                                setShowAll(!showAll);
+                                // If showing less, scroll back to top of projects
+                                if (showAll) {
+                                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
                             className="relative isolate px-8 py-4 rounded-full font-semibold text-white/90 transition-all duration-300 overflow-hidden group shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] hover:shadow-[0_0_50px_rgba(255,255,255,0.8)]"
                         >
                             {/* TRUE Liquid Glass Layers */}
@@ -388,8 +394,17 @@ export default function Projects() {
                             <div className="absolute inset-0 z-20 rounded-[inherit] shadow-[inset_1px_1px_0_rgba(255,255,255,0.75),inset_0_0_5px_rgba(255,255,255,0.75)] pointer-events-none" />
 
                             <span className="relative z-30 flex items-center gap-2">
-                                Show More Projects
-                                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                                {showAll ? (
+                                    <>
+                                        Show Less Projects
+                                        <ChevronUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+                                    </>
+                                ) : (
+                                    <>
+                                        Show More Projects
+                                        <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                                    </>
+                                )}
                             </span>
                         </button>
                     </motion.div>

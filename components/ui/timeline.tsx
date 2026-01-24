@@ -19,8 +19,23 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   useEffect(() => {
     if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
+      const updateHeight = () => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect();
+          setHeight(rect.height);
+        }
+      };
+
+      updateHeight();
+
+      const resizeObserver = new ResizeObserver(() => {
+        updateHeight();
+      });
+      resizeObserver.observe(ref.current);
+
+      return () => {
+        if (ref.current) resizeObserver.unobserve(ref.current);
+      };
     }
   }, [ref]);
 
