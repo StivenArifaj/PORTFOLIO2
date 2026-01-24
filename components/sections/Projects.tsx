@@ -246,8 +246,8 @@ export default function Projects() {
                                         {project.id === 'mediflow' ? (
                                             /* MediFlow Specific Montage */
                                             <div className="relative w-full h-full flex items-center justify-center isolate overflow-hidden">
-                                                {/* Left Screen (Health Tracker) */}
-                                                <div className="absolute left-[18%] w-[26%] h-[85%] -rotate-12 transition-all duration-500 group-hover:-translate-x-6 group-hover:-rotate-[15deg] z-10 opacity-80 blur-[0.5px] group-hover:blur-0 group-hover:opacity-100">
+                                                {/* Left Screen (Health Tracker) - Hidden on mobile */}
+                                                <div className="hidden md:block absolute left-[18%] w-[26%] h-[85%] -rotate-12 transition-all duration-500 group-hover:-translate-x-6 group-hover:-rotate-[15deg] z-10 opacity-80 blur-[0.5px] group-hover:blur-0 group-hover:opacity-100">
                                                     <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden border-[4px] border-neutral-900 bg-neutral-900 shadow-xl">
                                                         <Image
                                                             src="/Mediflow_Screenshots/Screenshot_20251227-220131.png"
@@ -259,8 +259,8 @@ export default function Projects() {
                                                     </div>
                                                 </div>
 
-                                                {/* Right Screen (Details) */}
-                                                <div className="absolute right-[18%] w-[26%] h-[85%] rotate-12 transition-all duration-500 group-hover:translate-x-6 group-hover:rotate-[15deg] z-10 opacity-80 blur-[0.5px] group-hover:blur-0 group-hover:opacity-100">
+                                                {/* Right Screen (Details) - Hidden on mobile */}
+                                                <div className="hidden md:block absolute right-[18%] w-[26%] h-[85%] rotate-12 transition-all duration-500 group-hover:translate-x-6 group-hover:rotate-[15deg] z-10 opacity-80 blur-[0.5px] group-hover:blur-0 group-hover:opacity-100">
                                                     <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden border-[4px] border-neutral-900 bg-neutral-900 shadow-xl">
                                                         <Image
                                                             src="/Mediflow_Screenshots/Screenshot_20251227-220201.png"
@@ -272,18 +272,18 @@ export default function Projects() {
                                                     </div>
                                                 </div>
 
-                                                {/* Center Screen (Home - No Medicines) - Main Focus */}
-                                                <div className="relative w-[30%] h-[95%] z-20 transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 drop-shadow-2xl">
-                                                    <div className="relative w-full h-full rounded-[1.8rem] overflow-hidden border-[6px] border-neutral-900 bg-neutral-900 shadow-2xl ring-1 ring-white/10">
+                                                {/* Center Screen (Home - No Medicines) - Main Focus - Larger on mobile */}
+                                                <div className="relative w-[55%] md:w-[30%] h-[95%] z-20 transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 drop-shadow-2xl">
+                                                    <div className="relative w-full h-full rounded-[1.5rem] md:rounded-[1.8rem] overflow-hidden border-[4px] md:border-[6px] border-neutral-900 bg-neutral-900 shadow-2xl ring-1 ring-white/10">
                                                         {/* Notch approximation */}
-                                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[20px] bg-neutral-900 rounded-b-[0.8rem] z-30"></div>
+                                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[15px] md:h-[20px] bg-neutral-900 rounded-b-[0.6rem] md:rounded-b-[0.8rem] z-30"></div>
                                                         <Image
                                                             src="/Mediflow_Screenshots/Screenshot_20251227-220000.png"
                                                             fill
                                                             alt="Home Screen"
                                                             className="object-cover"
                                                             priority
-                                                            sizes="(max-width: 768px) 35vw, 12vw"
+                                                            sizes="(max-width: 768px) 60vw, 12vw"
                                                         />
                                                     </div>
                                                 </div>
