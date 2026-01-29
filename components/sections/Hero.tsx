@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { LiquidGlassButton } from "@/components/ui/liquid-glass-button";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
@@ -25,7 +24,6 @@ export default function Hero() {
                 <WaveBackground backgroundColor="#030014" strokeColor="rgba(156, 178, 255, 0.5)" />
             </div>
 
-            {/* Lamp Removed for Debugging */}
             <motion.div
                 initial={{ opacity: isMobile ? 0.8 : 0.5, y: isMobile ? 30 : 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +46,7 @@ export default function Hero() {
                     {tagline}
                 </p>
 
-                {/* Buttons */}
+                {/* Main Buttons */}
                 <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8 items-center pointer-events-auto">
                     <Link href="#projects">
                         <LiquidGlassButton className="w-48 h-14">
@@ -62,15 +60,20 @@ export default function Hero() {
                         </LiquidGlassButton>
                     </Link>
                 </div>
-            </motion.div>
 
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
-            >
-                <ArrowDown className="text-neutral-400 animate-bounce w-8 h-8" />
+                {/* Scroll Down Button - Premium Liquid Glass Style (Clean) */}
+                <motion.button
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    onClick={() => {
+                        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="group mt-12 w-14 h-14 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:bg-white/10 hover:border-accent-cyan/50 hover:shadow-[0_0_25px_rgba(46,230,255,0.4)] transition-all duration-300 pointer-events-auto"
+                    aria-label="Scroll to next section"
+                >
+                    <ArrowDown className="w-6 h-6 text-white/70 group-hover:text-accent-cyan transition-colors animate-bounce" />
+                </motion.button>
             </motion.div>
         </section>
     );

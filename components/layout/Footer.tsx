@@ -1,16 +1,14 @@
-import { Heart } from "lucide-react";
-
 export default function Footer() {
     return (
-        <footer className="bg-neutral-950 py-8 border-t border-white/5">
-            <div className="container mx-auto px-4 text-center">
-                <p className="text-neutral-500 text-sm flex items-center justify-center gap-1 font-poppins">
-                    Designed & Built with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by Stiven Arifaj
-                </p>
-                <p className="text-neutral-600 text-xs mt-2 font-poppins">
-                    © {new Date().getFullYear()} All Rights Reserved.
+        <footer className="relative bg-[#030014] py-8 overflow-hidden">
+            {/* Gradient Divider */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent" />
+
+            <div className="container mx-auto px-6 relative z-10">
+                <p className="text-neutral-500 text-sm font-poppins text-center">
+                    © {new Date().getFullYear()} Stiven Arifaj. All rights reserved.
                 </p>
             </div>
         </footer>
-    )
+    );
 }

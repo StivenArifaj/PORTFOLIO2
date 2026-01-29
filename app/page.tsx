@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import ScrollFixer from "@/components/utils/ScrollFixer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
@@ -41,6 +42,7 @@ export default function Home() {
       <Stats />
       <Journey />
       <Contact />
+      <Footer />
     </main>
   );
 }
