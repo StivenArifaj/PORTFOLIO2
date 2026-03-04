@@ -27,11 +27,6 @@ const slugs = [
     "csharp"
 ];
 
-import dynamic from "next/dynamic";
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
-
 export default function Skills() {
     const isMobile = useMobile();
 

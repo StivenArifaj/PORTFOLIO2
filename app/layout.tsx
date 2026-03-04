@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Orbitron, Poppins, Space_Mono } from "next/font/google"; // Ensure fonts are imported
-import Script from "next/script";
+
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
@@ -88,7 +88,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
           type="application/ld+json"
@@ -134,10 +134,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Preload Spline assets for faster robot loading */}
-        <link rel="preload" href="/spline/spline-viewer.js" as="script" />
-        <link rel="preload" href="/spline/robot-scene.splinecode" as="fetch" crossOrigin="anonymous" />
-        <link rel="preload" href="/spline/process.js" as="script" />
+
       </head>
       <body className="antialiased bg-[#030014] text-foreground overflow-x-hidden overflow-y-scroll">
         <StarsCanvas />

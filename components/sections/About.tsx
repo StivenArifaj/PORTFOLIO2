@@ -11,10 +11,6 @@ const SplineRobot = dynamic(() => import("@/components/ui/spline-robot-wrapper")
     loading: () => null,
 });
 
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
-
 export default function About() {
     const isMobile = useMobile();
 

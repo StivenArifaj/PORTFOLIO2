@@ -4,27 +4,21 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollFixer from "@/components/utils/ScrollFixer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import {
+  ClientAbout,
+  ClientSkills,
+  ClientStats,
+  ClientContact,
+} from "@/components/sections/ClientSections";
 
-// Dynamically import sections below the fold
-const About = dynamic(() => import("@/components/sections/About"), {
-  ssr: true,
-});
+// SSR ON: text-heavy sections Google should crawl
 const Startup = dynamic(() => import("@/components/sections/Startup"), {
   ssr: true,
 });
 const Projects = dynamic(() => import("@/components/sections/Projects"), {
   ssr: true,
 });
-const Skills = dynamic(() => import("@/components/sections/Skills"), {
-  ssr: true,
-});
 const Journey = dynamic(() => import("@/components/sections/Journey"), {
-  ssr: true,
-});
-const Stats = dynamic(() => import("@/components/sections/Stats"), {
-  ssr: true,
-});
-const Contact = dynamic(() => import("@/components/sections/Contact"), {
   ssr: true,
 });
 
@@ -35,13 +29,13 @@ export default function Home() {
       <ScrollFixer />
       <Navbar />
       <Hero />
-      <About />
+      <ClientAbout />
       <Startup />
       <Projects />
-      <Skills />
-      <Stats />
+      <ClientSkills />
+      <ClientStats />
       <Journey />
-      <Contact />
+      <ClientContact />
       <Footer />
     </main>
   );

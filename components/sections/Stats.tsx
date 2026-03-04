@@ -76,11 +76,6 @@ function StatCounter({ end, suffix = "", duration = 2, icon, label }: StatCounte
     );
 }
 
-import dynamic from "next/dynamic";
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
-
 export default function Stats() {
     const isMobile = useMobile();
     return (

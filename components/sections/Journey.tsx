@@ -1,12 +1,6 @@
 "use client";
-import dynamic from "next/dynamic";
 import { Timeline } from "@/components/ui/timeline";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { useMobile } from "@/hooks/use-mobile";
-
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
 
 export default function Journey() {
     const isMobile = useMobile();

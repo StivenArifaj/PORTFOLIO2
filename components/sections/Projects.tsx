@@ -121,12 +121,6 @@ function ScreenshotGallery({
     );
 }
 
-// Dynamic import for StarsCanvas
-import dynamic from "next/dynamic";
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
-
 export default function Projects() {
     const isMobile = useMobile();
     const [activeFilter, setActiveFilter] = useState('all');
