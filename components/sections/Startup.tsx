@@ -49,20 +49,25 @@ function FloatingPaths({ position }: { position: number }) {
 }
 
 import { useMobile } from "@/hooks/use-mobile";
-import { useEffect, useState } from "react";
-
-// Dynamic import for StarsCanvas
-import dynamic from "next/dynamic";
-const StarsCanvas = dynamic(() => import("@/components/ui/star-background").then(mod => mod.StarsCanvas), {
-    ssr: false,
-});
+import { useEffect, useRef, useState } from "react";
 
 export default function Startup() {
     const isMobile = useMobile();
-    const [mounted, setMounted] = useState(false);
+    const iframeRef = useRef<HTMLDivElement>(null);
+    const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShouldLoadIframe(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "300px" }
+        );
+        if (iframeRef.current) observer.observe(iframeRef.current);
+        return () => observer.disconnect();
     }, []);
 
     return (
@@ -107,16 +112,18 @@ export default function Startup() {
                             <div className="w-28 h-6 bg-black absolute top-0 left-1/2 transform -translate-x-1/2 rounded-b-xl z-20 pointer-events-none" />
 
                             {/* Desktop & Mobile: Live Website Iframe */}
-                            {!mounted ? (
-                                <div className="w-full h-full relative animate-pulse bg-neutral-900" />
-                            ) : (
-                                <iframe
-                                    src="https://moneyrush.vercel.app"
-                                    className="w-full h-full border-0 bg-white"
-                                    title="MoneyRush FinCity Demo"
-                                    loading="lazy"
-                                />
-                            )}
+                            <div ref={iframeRef} className="w-full h-full">
+                                {!shouldLoadIframe ? (
+                                    <div className="w-full h-full relative animate-pulse bg-neutral-900" />
+                                ) : (
+                                    <iframe
+                                        src="https://moneyrush.vercel.app"
+                                        className="w-full h-full border-0 bg-white"
+                                        title="MoneyRush FinCity Demo"
+                                        loading="lazy"
+                                    />
+                                )}
+                            </div>
                         </div>
                     </motion.div>
 

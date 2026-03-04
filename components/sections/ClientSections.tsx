@@ -14,7 +14,14 @@ const Stats = dynamic(() => import("@/components/sections/Stats"), {
 const Contact = dynamic(() => import("@/components/sections/Contact"), {
     ssr: false,
 });
+const StarsCanvas = dynamic(
+    () => import("@/components/ui/star-background").then(m => m.StarsCanvas),
+    { ssr: false }
+);
 
+export function ClientStarsCanvas() {
+    return <StarsCanvas />;
+}
 export function ClientAbout() {
     return <About />;
 }

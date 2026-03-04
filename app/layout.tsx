@@ -4,7 +4,7 @@ import { Orbitron, Poppins, Space_Mono } from "next/font/google"; // Ensure font
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
-import { StarsCanvas } from "@/components/ui/star-background";
+
 import { DesktopRecommendation } from "@/components/ui/desktop-recommendation";
 
 // Font configurations
@@ -137,7 +137,6 @@ export default function RootLayout({
 
       </head>
       <body className="antialiased bg-[#030014] text-foreground overflow-x-hidden overflow-y-scroll">
-        <StarsCanvas />
         <DesktopRecommendation />
         <ThemeProvider
           attribute="class"
