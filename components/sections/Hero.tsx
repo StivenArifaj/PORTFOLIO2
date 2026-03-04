@@ -7,7 +7,11 @@ import { LiquidGlassButton } from "@/components/ui/liquid-glass-button";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { useMobile } from "@/hooks/use-mobile";
 
-
+import dynamic from "next/dynamic";
+const WaveBackground = dynamic(
+    () => import("@/components/ui/wave-background").then(mod => mod.Waves),
+    { ssr: false }
+);
 
 export default function Hero() {
     const isMobile = useMobile();
@@ -15,18 +19,9 @@ export default function Hero() {
 
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
-            {/* Video Background behind everything */}
+            {/* Wave Background behind everything */}
             <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                    style={{ opacity: 0.4 }}
-                >
-                    <source src="/videos/blackhole.webm" type="video/webm" />
-                </video>
+                <WaveBackground backgroundColor="#030014" strokeColor="rgba(156, 178, 255, 0.5)" />
             </div>
 
             <motion.div
