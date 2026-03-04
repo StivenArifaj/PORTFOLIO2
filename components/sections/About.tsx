@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { MapPin, GraduationCap, Code2 } from "lucide-react";
@@ -13,6 +13,22 @@ const SplineRobot = dynamic(() => import("@/components/ui/spline-robot-wrapper")
 
 export default function About() {
     const isMobile = useMobile();
+    const sectionRef = useRef<HTMLElement>(null);
+    const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShouldLoadSpline(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "200px" }
+        );
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     const cards = [
         { title: "Location", value: "Albania", icon: <MapPin className="w-6 h-6 mb-2 text-accent-cyan" /> },
@@ -21,7 +37,7 @@ export default function About() {
     ];
 
     return (
-        <section id="about" className="py-20 lg:py-32 relative overflow-hidden">
+        <section ref={sectionRef} id="about" className="py-20 lg:py-32 relative overflow-hidden">
             {/* Gradient overlay for text contrast */}
             <div className="absolute inset-0 w-full h-full z-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030014]/50 to-transparent" />
@@ -102,7 +118,7 @@ export default function About() {
                     {/* Right Column: Dynamic Robot Transition */}
                     <div className="h-[350px] lg:h-[450px] w-full flex items-start justify-center relative z-20 pointer-events-auto mt-8 lg:mt-0">
                         <div className="w-full h-full transform scale-90 origin-top">
-                            <SplineRobot />
+                            {shouldLoadSpline && <SplineRobot />}
                         </div>
                     </div>
                 </div>

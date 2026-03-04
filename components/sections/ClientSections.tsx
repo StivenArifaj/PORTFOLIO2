@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
+import { useRef, useState, useEffect } from "react";
 
-// SSR OFF: heavy client-only sections (WebGL, canvas, animations)
 const About = dynamic(() => import("@/components/sections/About"), {
     ssr: false,
 });
@@ -19,18 +19,37 @@ const StarsCanvas = dynamic(
     { ssr: false }
 );
 
+function LazySection({ children }: { children: React.ReactNode }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "300px" }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, []);
+    return <div ref={ref}>{visible ? children : null}</div>;
+}
+
 export function ClientStarsCanvas() {
     return <StarsCanvas />;
 }
 export function ClientAbout() {
-    return <About />;
+    return <LazySection><About /></LazySection>;
 }
 export function ClientSkills() {
-    return <Skills />;
+    return <LazySection><Skills /></LazySection>;
 }
 export function ClientStats() {
-    return <Stats />;
+    return <LazySection><Stats /></LazySection>;
 }
 export function ClientContact() {
-    return <Contact />;
+    return <LazySection><Contact /></LazySection>;
 }
