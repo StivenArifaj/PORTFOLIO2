@@ -76,10 +76,10 @@ export default function Startup() {
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 <div className="text-center mb-12 lg:mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-4 bg-gradient-to-r from-accent-cyan to-accent-green bg-clip-text text-transparent">
-                        MoneyRush FinCity
+                        Vale FinCity
                     </h2>
                     <p className="text-lg text-neutral-200 max-w-2xl mx-auto font-poppins">
-                        Founded MoneyRush, a gamified financial literacy platform empowering the next generation.
+                        Founded Vale, a gamified financial literacy platform empowering the next generation.
                     </p>
                 </div>
 
@@ -111,9 +111,9 @@ export default function Startup() {
                                 <div className="w-full h-full relative animate-pulse bg-neutral-900" />
                             ) : (
                                 <iframe
-                                    src="https://moneyrush.vercel.app"
+                                    src="https://valegame.vercel.app/"
                                     className="w-full h-full border-0 bg-white"
-                                    title="MoneyRush FinCity Demo"
+                                    title="Vale FinCity Demo"
                                     loading="lazy"
                                 />
                             )}
@@ -133,7 +133,7 @@ export default function Startup() {
 
                         <h3 className="text-2xl font-bold text-white font-orbitron">Gamifying Financial Education</h3>
                         <p className="text-neutral-300 leading-relaxed text-base">
-                            Designed and built a comprehensive ecosystem where teenagers learn finance through living inside an virtual city and making decisions that an adult would make in their financial life. MoneyRush bridges the gap between financial theory and practical application in an engaging, age-appropriate way.
+                            Designed and built a comprehensive ecosystem where teenagers learn finance through living inside an virtual city and making decisions that an adult would make in their financial life. Vale bridges the gap between financial theory and practical application in an engaging, age-appropriate way.
                         </p>
 
                         <ul className="space-y-3 pt-2">
@@ -150,7 +150,7 @@ export default function Startup() {
                             ))}
                         </ul>
 
-                        <Link href="https://moneyrush.vercel.app" target="_blank" className="inline-block mt-4">
+                        <Link href="https://valegame.vercel.app/" target="_blank" className="inline-block mt-4">
                             <button className="group relative px-6 py-3 rounded-full font-semibold transition-all duration-300 overflow-hidden text-sm border border-white/20 hover:shadow-[0_0_40px_rgba(156,178,255,0.4)]">
                                 {/* Liquid glass layers */}
                                 <div className="absolute inset-0 z-0 backdrop-blur-md [filter:url(#lg-dist)] isolate" />
