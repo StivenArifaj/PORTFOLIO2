@@ -75,7 +75,7 @@ export default function Startup() {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true, margin: "-50px" }}
                         aria-label="Vale website shown in an iPhone mockup"
-                        className="relative isolate w-[min(84vw,320px)] shrink-0 aspect-[9/19.5] rounded-[3.15rem] bg-gradient-to-br from-[#a9a9a9] via-[#292929] to-[#777] p-[2px] shadow-[0_30px_90px_-28px_rgba(0,0,0,0.9),0_0_34px_-18px_rgba(224,179,77,0.55)] lg:w-[280px]"
+                        className="relative isolate w-[min(84vw,320px)] shrink-0 aspect-[9/19.5] rounded-[3.15rem] bg-gradient-to-br from-[#a9a9a9] via-[#292929] to-[#777] p-[2px] shadow-[0_30px_90px_-28px_rgba(0,0,0,0.9),0_0_34px_-18px_rgba(224,179,77,0.55)] lg:w-[320px]"
                     >
                         <GlowingEffect spread={45} glow disabled={false} proximity={90} inactiveZone={0.01} borderWidth={2} />
                         <div className="absolute inset-[7px] overflow-hidden rounded-[2.65rem] border border-white/10 bg-black">
